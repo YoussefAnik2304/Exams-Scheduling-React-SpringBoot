@@ -1,12 +1,8 @@
 package org.examschedulemanagement.Controllers;
 
 import org.examschedulemanagement.Entities.Personnel;
-import org.examschedulemanagement.Service.GroupsService;
-import org.examschedulemanagement.Service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -15,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("Personnel")
 public class PersonnelController {
+    /*
     @Autowired
     private PersonnelService personnelService;
     @Autowired
@@ -66,5 +63,5 @@ public class PersonnelController {
             return ResponseEntity.notFound().build();
         }
     }
-
+*/
 }

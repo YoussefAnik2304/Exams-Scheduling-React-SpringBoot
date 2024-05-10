@@ -1,5 +1,6 @@
 package org.examschedulemanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,20 +18,8 @@ public class Groups {
     private Long id;
     @Column(name = "group_name")
     private String name;
+    @JsonIgnore
+    @OneToMany(mappedBy = "group" , cascade = CascadeType.ALL)
+    private Set<Professor> members;
 
-    @ManyToMany
-    @JoinTable(
-            name = "personnel_group",
-            joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns = @JoinColumn(name = "personnel_id"))
-    private List<Personnel> members;
-    public static GroupsDTO ConvertGroupToDto(Groups group){
-        GroupsDTO dto = new GroupsDTO();
-        dto.setId(group.getId());
-        dto.setName(group.getName());
-        // Populate memberIds based on the IDs of personnel members associated with the group
-        dto.setMemberIds(group.getMembers().stream().map(Personnel::getId).collect(Collectors.toSet()));
-        return dto;
-    }
-    // Getters and setters
 }
