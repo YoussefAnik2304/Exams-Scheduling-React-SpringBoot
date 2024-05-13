@@ -1,5 +1,6 @@
 package org.examschedulemanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class Departement {
     private Long id ;
     private String nom ;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private Set<Professor> departement_profs;
 

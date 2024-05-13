@@ -3,16 +3,21 @@ package org.examschedulemanagement.Entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Setter
+@Entity
+@Table(name = "personnel")
 @Getter
-@MappedSuperclass
-public class Personnel {
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public abstract class Personnel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

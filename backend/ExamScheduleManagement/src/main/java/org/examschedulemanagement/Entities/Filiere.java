@@ -1,5 +1,6 @@
 package org.examschedulemanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class Filiere {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
     private String name ;
+    @JsonIgnore
     @OneToMany(mappedBy = "filiere" , cascade = CascadeType.ALL)
     private Set<Professor> filier_profs;
 }
