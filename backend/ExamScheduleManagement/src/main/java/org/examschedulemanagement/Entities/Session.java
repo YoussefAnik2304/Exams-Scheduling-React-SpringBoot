@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,5 +17,5 @@ public class Session {
 
     @JsonIgnore
     @OneToMany(mappedBy = "session",cascade = CascadeType.ALL)
-    private Set<Exam> examsInSession;
+    private List<Exam> examsInSession;
 }

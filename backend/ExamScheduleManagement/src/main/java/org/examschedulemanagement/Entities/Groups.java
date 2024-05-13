@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -16,10 +16,12 @@ public class Groups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "group_name")
     private String name;
+
     @JsonIgnore
     @OneToMany(mappedBy = "group" , cascade = CascadeType.ALL)
-    private Set<Professor> members;
+    private List<Professor> members;
 
 }

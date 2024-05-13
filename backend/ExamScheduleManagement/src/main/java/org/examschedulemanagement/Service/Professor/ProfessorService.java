@@ -2,7 +2,7 @@ package org.examschedulemanagement.Service.Professor;
 
 import org.examschedulemanagement.Entities.Professor;
 
-import java.util.List;
+import java.util.List;;;
 
 public interface ProfessorService {
     void assignDepartementToProfessor(Long professorId, Long departementId);

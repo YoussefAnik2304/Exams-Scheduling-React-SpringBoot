@@ -7,8 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,14 +30,14 @@ public class Professor extends Personnel{
 
     @JsonIgnore
     @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
-    private Set<Course> coursesTeaching;
+    private List<Course> coursesTeaching;
     @JsonIgnore
     @OneToMany(mappedBy = "supervisor",cascade = CascadeType.ALL)
-    private Set<Course> coursesSupervising;
+    private List<Course> coursesSupervising;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "surveil_profs",cascade = CascadeType.ALL)
-    private Set<Surveillance> surveid_surveil=new HashSet<>();
+    private List<Surveillance> surveid_surveil=new ArrayList<>();
 
 
     @ManyToOne

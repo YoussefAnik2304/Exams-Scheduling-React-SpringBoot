@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 @Entity
 @Getter
 @Setter
@@ -16,5 +16,5 @@ public class Grade {
     private String titre ;
     @JsonIgnore
     @OneToMany(mappedBy = "grade",cascade = CascadeType.ALL)
-    private Set<Course> courses;
+    private List<Course> courses;
 }

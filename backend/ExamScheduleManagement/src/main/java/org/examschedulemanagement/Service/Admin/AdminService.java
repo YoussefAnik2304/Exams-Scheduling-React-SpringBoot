@@ -3,7 +3,7 @@ package org.examschedulemanagement.Service.Admin;
 import org.examschedulemanagement.Entities.Admin;
 import org.examschedulemanagement.Entities.Professor;
 
-import java.util.Set;
+import java.util.List;
 
 public interface AdminService {
     boolean Exists(String email);
@@ -11,5 +11,5 @@ public interface AdminService {
     Admin addAdmin(Admin admin);
     Admin updateAdmin(Long id,Admin admin);
     Admin deleteAdmin (Admin admin );
-    Set<Admin> getAllAdmins();
+    List<Admin> getAllAdmins();
 }

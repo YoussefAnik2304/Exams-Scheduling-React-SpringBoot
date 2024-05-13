@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,6 +17,6 @@ public class TypeElement {
     private String titre ;
     @JsonIgnore
     @OneToMany(mappedBy = "typeElement",cascade = CascadeType.ALL)
-    private Set<Course> courses;
+    private List<Course> courses;
 
 }

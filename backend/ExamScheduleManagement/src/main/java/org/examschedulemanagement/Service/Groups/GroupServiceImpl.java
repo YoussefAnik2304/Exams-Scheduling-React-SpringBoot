@@ -13,7 +13,9 @@ import org.examschedulemanagement.Entities.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Optional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,7 +32,7 @@ public class GroupServiceImpl implements GroupService{
     public void assignProfessorToGroupByDepartement(Long groupId, Long DepartementId) {
         Groups group=groupsDao.findById(groupId).orElseThrow(()-> new EntityNotFoundException("group not found"));
         Departement dept=departementDao.getReferenceById(DepartementId);
-        Set<Professor> departemet_professors=dept.getDepartement_profs();
+        List<Professor> departemet_professors=dept.getDepartement_profs();
         group.setMembers(departemet_professors);
         groupsDao.save(group);
     }
@@ -39,7 +41,7 @@ public class GroupServiceImpl implements GroupService{
     public void assignProfessorToGroupByFiliere(Long groupId, Long filiereId) {
         Groups group=groupsDao.findById(groupId).orElseThrow(()-> new EntityNotFoundException("group not found"));
         Filiere filiere=filiereDao.getReferenceById(filiereId);
-        Set<Professor> filiere_professors=filiere.getFilier_profs();
+        List<Professor> filiere_professors=filiere.getFilier_profs();
         group.setMembers(filiere_professors);
         groupsDao.save(group);
     }
@@ -47,5 +49,44 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public void assignProfessorToGroupRandomly(Long groupId) {
 
+    }
+
+    @Override
+    public List<Groups> getAllGroups() {
+        return groupsDao.findAll();
+    }
+
+    @Override
+    public Groups getGroupById(Long id) {
+        return groupsDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public Groups addGroup(Groups group) {
+        Groups existingGroup =groupsDao.getGroupsByName(group.getName());
+        if(existingGroup==null)
+            return groupsDao.save(group);
+        return null;
+    }
+
+    @Override
+    public Groups updateGroup(Long id, Groups group) {
+        Groups existingGroup=groupsDao.getReferenceById(id);
+        if(existingGroup!=null){
+            existingGroup.setName(group.getName());
+
+        }
+        return groupsDao.save(existingGroup);
+    }
+
+    @Override
+    public Groups deleteGroup(Groups group) {
+        groupsDao.delete(group);
+        return group;
+    }
+
+    @Override
+    public Groups getGroupByName(String name) {
+        return groupsDao.getGroupsByName(name);
     }
 }

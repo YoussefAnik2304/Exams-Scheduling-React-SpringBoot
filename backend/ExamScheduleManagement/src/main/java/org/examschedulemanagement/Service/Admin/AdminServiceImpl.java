@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 @Transactional
@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public Set<Admin> getAllAdmins() {
-        return (Set<Admin>) adminDao.findAll();
+    public List<Admin> getAllAdmins() {
+        return (List<Admin>) adminDao.findAll();
     }
 }

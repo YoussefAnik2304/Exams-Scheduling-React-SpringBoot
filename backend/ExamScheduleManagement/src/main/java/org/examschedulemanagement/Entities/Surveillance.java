@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.EnableMBeanExport;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,11 +26,11 @@ public class Surveillance {
             joinColumns = @JoinColumn(name = "surveillance_id"),
             inverseJoinColumns = @JoinColumn(name = "prof_id")
     )
-    private Set<Professor> surveil_profs=new HashSet<>();
+    private List<Professor> surveil_profs=new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "cordinated_surveil",cascade = CascadeType.ALL)
-    private Set<Professor> coordinators;
+    private List<Professor> coordinators;
 
     @ManyToOne
     @JoinColumn(name = "surveill_id")
@@ -36,10 +38,10 @@ public class Surveillance {
 
     @JsonIgnore
     @OneToMany(mappedBy = "surveillance",cascade = CascadeType.ALL)
-    private Set<Salle> salles;
+    private List<Salle> salles;
 
     @JsonIgnore
     @OneToMany(mappedBy = "exam_surveill",cascade = CascadeType.ALL)
-    private Set<Exam> exams;
+    private List<Exam> exams;
 
 }

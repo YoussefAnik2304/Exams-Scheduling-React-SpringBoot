@@ -13,6 +13,7 @@ public class Salle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
+    private String titre ;
     @ManyToOne
     @JoinColumn(name = "salle_id")
     private Surveillance surveillance;
