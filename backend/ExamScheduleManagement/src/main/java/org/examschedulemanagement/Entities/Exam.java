@@ -24,6 +24,10 @@ public class Exam {
     private Session session;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne
     @JoinColumn(name = "typeExam_id")
     private TypeExam typeExam;
 

@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -16,7 +18,8 @@ public class Course {
 
     private String titre;
 
-
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL)
+    private List<Exam> examList;
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Professor teacher;
