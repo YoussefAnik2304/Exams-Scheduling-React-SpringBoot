@@ -56,4 +56,6 @@ public class AdminServiceImpl implements AdminService{
     public List<Admin> getAllAdmins() {
         return (List<Admin>) adminDao.findAll();
     }
+
+
 }
