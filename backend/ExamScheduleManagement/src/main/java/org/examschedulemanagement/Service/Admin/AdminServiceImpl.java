@@ -19,14 +19,7 @@ public class AdminServiceImpl implements AdminService{
         return adminDao.existsAdminByEmail(email);
     }
 
-    @Override
-    public boolean CredentielsCheck(Admin admin) {
-        Admin registeredAdmin=adminDao.getAdminByEmail(admin.getEmail());
-        if(registeredAdmin!=null && registeredAdmin.getPassword()==admin.getPassword()){
-            return true ;
-        }else return false;
 
-    }
 
     @Override
     public Admin addAdmin(Admin admin) {
