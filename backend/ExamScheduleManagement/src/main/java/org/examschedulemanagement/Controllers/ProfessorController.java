@@ -6,6 +6,8 @@ import org.examschedulemanagement.Service.Professor.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -19,9 +21,10 @@ public class ProfessorController {
     private GroupService groupService;
     @Autowired
     private ProfessorService professorService;
-    @GetMapping("/List")
+    @GetMapping("List")
     public ResponseEntity<List<Professor>> GetProfessors(){
         List<Professor> Professors =professorService.getProfessors();
+
         if(Professors!=null){
             return ResponseEntity.ok(Professors);
         }else{

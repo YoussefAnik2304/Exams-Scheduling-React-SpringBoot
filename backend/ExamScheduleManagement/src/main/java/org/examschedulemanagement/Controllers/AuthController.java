@@ -8,6 +8,8 @@ import org.examschedulemanagement.Entities.Admin;
 import org.examschedulemanagement.Entities.Personnel;
 import org.examschedulemanagement.Entities.Professor;
 import org.examschedulemanagement.Entities.Role;
+import org.examschedulemanagement.Security.AuthResponseDTO;
+import org.examschedulemanagement.Security.JwtGenerator;
 import org.examschedulemanagement.Security.LoginDto;
 import org.examschedulemanagement.Security.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,24 +36,29 @@ public class AuthController {
     private ProfessorDao professorDao;
     private RoleDao roleDao;
     private PasswordEncoder passwordEncoder;
+    private JwtGenerator jwtGenerator;
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, AdminDao adminDao, PersonnelDao personnelDao, ProfessorDao professorDao, RoleDao roleDao, PasswordEncoder passwordEncoder) {
+    public AuthController(JwtGenerator jwtGenerator,AuthenticationManager authenticationManager, AdminDao adminDao, PersonnelDao personnelDao, ProfessorDao professorDao, RoleDao roleDao, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.adminDao = adminDao;
         this.personnelDao = personnelDao;
         this.professorDao = professorDao;
         this.roleDao = roleDao;
         this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator=jwtGenerator;
     }
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsername(),
                         loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        //String token = jwtGenerator.generateToken(authentication);
-        return new ResponseEntity<>("user authentificated", HttpStatus.OK);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = auth.getName();
+        System.out.println("Current user: " + currentPrincipalName +"\n"+ auth.getAuthorities()+"\n"+auth.getCredentials());
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDTO(token), HttpStatus.OK);
     }
 
     @PostMapping("/register")
