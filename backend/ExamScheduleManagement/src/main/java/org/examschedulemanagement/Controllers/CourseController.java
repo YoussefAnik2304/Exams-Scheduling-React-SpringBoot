@@ -1,5 +1,6 @@
 package org.examschedulemanagement.Controllers;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.examschedulemanagement.Entities.Course;
 import org.examschedulemanagement.Service.Course.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,40 @@ public class CourseController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/{courseId}/assign-professor/{professorId}")
+    public ResponseEntity<Course> assignProfessorToCourse(@PathVariable Long courseId, @PathVariable Long professorId) {
+        try {
+            Course course = courseService.assignProfessorToCourse(courseId, professorId);
+            return ResponseEntity.ok(course);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{courseId}/assign-supervisor/{supervisorId}")
+    public ResponseEntity<Course> assignSupervisorToCourse(@PathVariable Long courseId, @PathVariable Long supervisorId) {
+        try {
+            Course course = courseService.assignSupervisorToCourse(courseId, supervisorId);
+            return ResponseEntity.ok(course);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //    @GetMapping("/teacher/{teacherName}")
+//    public List<Course> getCoursesByTeacherName(@PathVariable String teacherName) {
+//        return courseService.getCoursesByTeacherName(teacherName);
+//    }
+//
+//    @GetMapping("/supervisor/{supervisorName}")
+//    public List<Course> getCoursesBySupervisorName(@PathVariable String supervisorName) {
+//        return courseService.getCoursesBySupervisorName(supervisorName);
+//    }
+
+//    @GetMapping("/grade/{gradeName}")
+//    public List<Course> getCoursesByGrade(@PathVariable String gradeName) {
+//        return courseService.getCoursesByGrade(gradeName);
+//    }
 }
 
