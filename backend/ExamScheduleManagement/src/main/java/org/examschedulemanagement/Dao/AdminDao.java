@@ -1,6 +1,7 @@
 package org.examschedulemanagement.Dao;
 
 import org.examschedulemanagement.Entities.Admin;
+import org.examschedulemanagement.Entities.Personnel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

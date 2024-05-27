@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.examschedulemanagement.Entities.Role;
 
 @Data
 @Builder
@@ -16,5 +15,4 @@ public class RegisterRequest {
   private String lastname;
   private String email;
   private String password;
-  private Role role;
 }

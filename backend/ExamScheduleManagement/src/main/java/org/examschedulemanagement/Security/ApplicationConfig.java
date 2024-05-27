@@ -3,6 +3,7 @@ package org.examschedulemanagement.Security;
 
 
 import lombok.RequiredArgsConstructor;
+import org.examschedulemanagement.Dao.AdminDao;
 import org.examschedulemanagement.Dao.PersonnelDao;
 import org.examschedulemanagement.Entities.Personnel;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +22,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    private final PersonnelDao personnelDao;
+    private final AdminDao adminDao;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> personnelDao.getPersonnelByEmail(username)
+        return username -> adminDao.getAdminByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
@@ -37,10 +38,6 @@ public class ApplicationConfig {
         return authProvider;
     }
 
-    @Bean
-    public AuditorAware<Integer> auditorAware() {
-        return new ApplicationAuditAware();
-    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
