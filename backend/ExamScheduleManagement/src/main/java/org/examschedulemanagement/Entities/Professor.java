@@ -40,6 +40,10 @@ public class Professor extends Personnel{
 
 
     @ManyToOne
+    @JoinColumn(name = "assignment")
+    private SalleAssignment assignment;
+
+    @ManyToOne
     @JoinColumn(name = "survaillance_id")
     private Surveillance cordinated_surveil;
 

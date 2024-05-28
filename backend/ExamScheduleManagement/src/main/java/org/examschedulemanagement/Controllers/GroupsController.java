@@ -1,7 +1,6 @@
 package org.examschedulemanagement.Controllers;
 
 import org.examschedulemanagement.Entities.Groups;
-import org.examschedulemanagement.Entities.Personnel;
 import org.examschedulemanagement.Entities.Professor;
 import org.examschedulemanagement.Service.Groups.GroupService;
 import org.examschedulemanagement.Service.Professor.ProfessorService;
@@ -9,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("Groups")
@@ -39,6 +36,7 @@ public class GroupsController {
     public ResponseEntity<List<Professor>> getGroupMembers(@PathVariable Long id){
         Groups group =groupsService.getGroupById(id);
         List<Professor> members=group.getMembers();
+        System.out.println(members);
         if(group!=null && members!=null)
             return ResponseEntity.ok(members);
         else return ResponseEntity.notFound().build();
@@ -67,8 +65,8 @@ public class GroupsController {
             return ResponseEntity.ok(removedGroup);
         else return ResponseEntity.notFound().build();
     }
-    @PostMapping("{group_id}/addMember/{Personnel_id}")
-    public ResponseEntity<Boolean> assignMemberToGroup (@PathVariable Long group_id,@PathVariable Long Personnel_id){
-            return null;
+    @PostMapping("{group_id}/addMembers")
+    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id){
+        return ResponseEntity.ok().body(groupsService.assignProfessorToGroupRandomly(group_id));
     }
 }

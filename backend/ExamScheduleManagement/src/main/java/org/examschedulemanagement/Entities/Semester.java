@@ -14,6 +14,8 @@ public class Semester {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String titre;
+
     @JsonIgnore
     @OneToMany(mappedBy = "semestere",cascade = CascadeType.ALL)
     private List<Exam> examsInSemestre;

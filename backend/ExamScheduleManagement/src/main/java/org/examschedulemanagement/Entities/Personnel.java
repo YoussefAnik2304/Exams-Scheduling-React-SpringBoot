@@ -29,10 +29,9 @@ public  class Personnel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonProperty("firstname")
     private String firstName;
-    @JsonProperty("lastname")
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String password;
 

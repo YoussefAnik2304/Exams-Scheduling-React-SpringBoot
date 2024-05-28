@@ -34,8 +34,8 @@ public class AuthenticationService {
             .password(passwordEncoder.encode(request.getPassword()))
             .build();
 */
-    Admin admin=new Admin(request.getFirstname(),
-            request.getLastname(),
+    Admin admin=new Admin(request.getFirstName(),
+            request.getLastName(),
             request.getEmail(),
             passwordEncoder.encode(request.getPassword())
             );
