@@ -24,7 +24,7 @@ import {editProfileFormSchema} from "@/zod/schemas/profile-schema.ts";
 import {useAuth} from "@/context/AuthContext.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import {GetDecodedToken} from "@/helpers/Helpers.tsx";
-import {HOST} from "@/context/EventsContext.tsx";
+import {HOST} from "@/context/ProfsContext.tsx";
 
 export default function ProfilePage() {
     const {updateUser} = useAuth();
@@ -254,7 +254,7 @@ export default function ProfilePage() {
                                                                     <FormLabel>Email</FormLabel>
                                                                     <FormControl>
                                                                         <Input placeholder="user@example.com"
-                                                                               type={"text"} {...field} />
+                                                                               type={"email"} {...field} />
                                                                     </FormControl>
                                                                     <FormMessage/>
                                                                 </FormItem>

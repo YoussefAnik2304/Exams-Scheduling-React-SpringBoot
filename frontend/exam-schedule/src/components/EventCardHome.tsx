@@ -1,7 +1,7 @@
 import {Card, CardContent, CardFooter, CardHeader} from "@/components/ui/card.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
-import {Event} from "@/types/event.ts";
+import {Event} from "@/types/prof.ts";
 import {format} from "date-fns";
 import {Link, useNavigate} from "react-router-dom";
 import {HOST} from "@/api/axios.ts";
