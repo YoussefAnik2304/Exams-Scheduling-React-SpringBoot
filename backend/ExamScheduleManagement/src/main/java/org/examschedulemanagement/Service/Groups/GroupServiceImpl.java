@@ -13,6 +13,7 @@ import org.examschedulemanagement.Entities.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.List;
@@ -47,9 +48,26 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public void assignProfessorToGroupRandomly(Long groupId) {
+    public Groups assignProfessorToGroupRandomly(Long groupId) {
+        // Find the group by ID or throw an exception if not found
+        Groups group = groupsDao.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found"));
+
+        // Retrieve all professors
+        List<Professor> professors = professorDao.findAll();
+
+        // Shuffle the list to assign professors randomly
+        Collections.shuffle(professors);
+
+        // Assign the shuffled professors to the group
+        group.setMembers(professors);
+
+        // Save the group with the new members
+
+        // Return the assigned members
+        return groupsDao.save(group);
 
     }
+
 
     @Override
     public List<Groups> getAllGroups() {

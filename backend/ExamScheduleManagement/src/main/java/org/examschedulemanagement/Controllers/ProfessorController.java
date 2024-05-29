@@ -42,6 +42,7 @@ public class ProfessorController {
     }
     @PostMapping("/add")
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor Professor) {
+        System.out.println(Professor);
         // Logic to create resource
         Professor savedProfessor = professorService.getProfessorByEmail(Professor.getEmail());
         if(savedProfessor!=null){

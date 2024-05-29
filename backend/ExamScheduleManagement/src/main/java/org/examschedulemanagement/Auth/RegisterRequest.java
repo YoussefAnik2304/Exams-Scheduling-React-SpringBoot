@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.examschedulemanagement.Entities.Role;
 
 @Data
 @Builder
@@ -12,9 +11,8 @@ import org.examschedulemanagement.Entities.Role;
 @NoArgsConstructor
 public class RegisterRequest {
 
-  private String firstname;
-  private String lastname;
+  private String firstName;
+  private String lastName;
   private String email;
   private String password;
-  private Role role;
 }

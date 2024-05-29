@@ -14,7 +14,7 @@ public class TypeExam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String titre;
     @JsonIgnore
     @OneToMany(mappedBy = "typeExam",cascade = CascadeType.ALL)
     private List<Exam> examSet;

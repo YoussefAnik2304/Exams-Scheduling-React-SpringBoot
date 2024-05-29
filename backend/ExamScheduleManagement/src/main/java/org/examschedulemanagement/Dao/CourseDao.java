@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CourseDao extends JpaRepository<Course,Long> {
+    Course getCourseByTitre(String titre);
 
 //    List<Course> findBySupervisor_Name(String supervisorName);
 //    List<Course> findByGrade_Name(String gradeName);

@@ -15,6 +15,8 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String titre;
+
     @JsonIgnore
     @OneToMany(mappedBy = "session",cascade = CascadeType.ALL)
     private List<Exam> examsInSession;

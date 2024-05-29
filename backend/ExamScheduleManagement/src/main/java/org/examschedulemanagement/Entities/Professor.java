@@ -3,9 +3,7 @@ package org.examschedulemanagement.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+
 public class Professor extends Personnel{
     @ManyToOne
     @JoinColumn(name = "group_id")
@@ -39,6 +38,10 @@ public class Professor extends Personnel{
     @ManyToMany(mappedBy = "surveil_profs",cascade = CascadeType.ALL)
     private List<Surveillance> surveid_surveil=new ArrayList<>();
 
+
+    @ManyToOne
+    @JoinColumn(name = "assignment")
+    private SalleAssignment assignment;
 
     @ManyToOne
     @JoinColumn(name = "survaillance_id")

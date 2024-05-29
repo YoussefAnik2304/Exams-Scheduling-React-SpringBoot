@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface GroupService {
     void assignProfessorToGroupByDepartement(Long groupId,Long DepartementId);
     void assignProfessorToGroupByFiliere(Long groupId,Long filiereId);
-    void assignProfessorToGroupRandomly(Long groupId);
+    Groups assignProfessorToGroupRandomly(Long groupId);
     List<Groups> getAllGroups();
     Groups getGroupById(Long id );
     Groups addGroup(Groups group );

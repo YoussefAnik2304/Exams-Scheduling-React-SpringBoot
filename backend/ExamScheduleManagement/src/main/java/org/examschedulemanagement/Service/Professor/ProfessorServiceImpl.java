@@ -62,6 +62,8 @@ public class ProfessorServiceImpl implements ProfessorService{
     @Override
     public Professor getProfessorByEmail(String email) {
         List<Professor> professors=professorDao.findAll();
+        if(professors==null )
+            return null;
         for(Professor prof : professors){
             if(prof.getEmail().equals(email))
                 return prof;
