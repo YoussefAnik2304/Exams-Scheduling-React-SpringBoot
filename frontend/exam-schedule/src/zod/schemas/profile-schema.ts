@@ -32,6 +32,7 @@ export const editProfileFormSchema = z.object({
         required_error: "password is required",
     }).regex(new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
     ), {message: "your password is weak"}),
+    role: z.enum(['admin', 'user'], { required_error: 'Role is required' }),
     profilImage: z.any()
         .refine((file) => {
             return file.size <= MAX_FILE_SIZE;

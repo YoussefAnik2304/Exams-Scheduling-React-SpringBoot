@@ -5,19 +5,17 @@ import LoginPage from "@/Pages/LoginPage.tsx";
 import SignupPage from "@/Pages/SignupPage.tsx";
 import DefaultLayoutAdmin from "@/layout/DefaultLayoutAdmin.tsx";
 import DefaultLayoutUser from "@/layout/DefaultLayoutUser.tsx";
-import EventsPage from "@/Pages/EventsPage.tsx";
-import EventViewPage from "@/Pages/EventViewPage.tsx";
-import EventViewAdminPage from "@/Pages/EventViewAdminPage.tsx";
-import CreateEventPage from "@/Pages/CreateEventPage.tsx";
-import EventsPageAdmin from "@/Pages/EventsPageAdmin.tsx";
+import FormationsPage from "@/Pages/FormationsPage.tsx";
+import ProfViewPage from "@/Pages/ProfViewPage.tsx";
+import ProfViewAdminPage from "@/Pages/ProfViewAdminPage.tsx";
+import ProfsPageAdmin from "@/Pages/ProfsPageAdmin.tsx";
 import UsersPage from "@/Pages/UsersPage.tsx";
-import SubscriptionsPage from "@/Pages/SubscriptionsPage.tsx";
-import UserSubscriptionsPage from "@/Pages/UserSubscriptionsPage.tsx";
 import ProtectedRoute from "@/routes/ProtectedRoute.tsx";
 import UnAuthorized from "@/Pages/UnAuthorized.tsx";
 import NotFoundPage from "@/Pages/NotFoundPage.tsx";
 import DefaultLayoutHome from "@/layout/DefaultLayoutHome.tsx";
 import ProfilePage from "@/Pages/ProfilePage.tsx";
+import CreateProfPage from "@/Pages/CreateProfPage.tsx";
 import HomePage from "@/Pages/HomePage.tsx";
 
 
@@ -35,8 +33,8 @@ export const router = createBrowserRouter([
                 element: <DefaultLayoutHome/>,
                 children: [
                     {
-                        path: "event",
-                        element: <EventViewPage/>
+                        path: "prof",
+                        element: <ProfViewPage/>
                     }
                 ]
             },
@@ -49,24 +47,24 @@ export const router = createBrowserRouter([
                     </ProtectedRoute>,
                 children: [
                     {
-                        path: "event/edit",
+                        path: "prof/edit",
                         element:
                             <ProtectedRoute allowedRoles={["Admin"]}>
-                                <EventViewAdminPage/>
+                                <ProfViewAdminPage/>
                             </ProtectedRoute>
                     },
                     {
-                        path: "event/create",
+                        path: "prof/create",
                         element:
                             <ProtectedRoute allowedRoles={["Admin"]}>
-                                <CreateEventPage/>
+                                <CreateProfPage/>
                             </ProtectedRoute>
                     },
                     {
-                        path: "events",
+                        path: "profs",
                         element:
                             <ProtectedRoute allowedRoles={["Admin"]}>
-                                <EventsPageAdmin/>
+                                <ProfsPageAdmin/>
                             </ProtectedRoute>
                     },
                     {
@@ -77,13 +75,7 @@ export const router = createBrowserRouter([
                             </ProtectedRoute>
 
                     },
-                    {
-                        path: "subscriptions",
-                        element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <SubscriptionsPage/>
-                            </ProtectedRoute>
-                    },
+
                     {
                         path: "profile",
                         element:
@@ -102,24 +94,17 @@ export const router = createBrowserRouter([
 
                 children: [
                     {
-                        path: "events",
+                        path: "profs",
                         element:
                             <ProtectedRoute allowedRoles={["User"]}>
-                                <EventsPage/>
+                                <FormationsPage/>
                             </ProtectedRoute>
                     },
                     {
-                        path: "event/view",
+                        path: "prof/view",
                         element:
                             <ProtectedRoute allowedRoles={["Admin"]}>
-                                <EventViewPage/>
-                            </ProtectedRoute>
-                    },
-                    {
-                        path: "subscriptions",
-                        element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <UserSubscriptionsPage/>
+                                <ProfViewPage/>
                             </ProtectedRoute>
                     },
                     {
