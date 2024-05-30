@@ -230,8 +230,9 @@ type ProfsContextType = {
 // }
 type Props = { children: React.ReactNode };
 
-export const HOST = "http://localhost:5014"
-const EVENT_END_POINT = "http://localhost:5014/api/prof";
+export const HOST = "http://localhost:8080"
+const EVENT_END_POINT = "http://localhost:8080/prof";
+
 
 const ProfsContext = createContext<ProfsContextType>({} as ProfsContextType);
 export const ProfsProvider  = ({ children } : Props) => {

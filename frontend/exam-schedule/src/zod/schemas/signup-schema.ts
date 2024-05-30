@@ -12,12 +12,7 @@ export const signupFormSchema = z.object({
     })
         .min(2, {message: "last name should be at least 6 characters long"})
         .max(20, {message: "last name should be no longer than 20 characters"}),
-    phone: z.optional(z.string({invalid_type_error: "phone number must be a string"}).regex(new RegExp('(?:\\+212|0)(?:6|7)\\d{8}'), {message: "phone number format is invalid"})),
-    role: z.enum(['admin', 'user'], { required_error: 'Role is required' }),
-    // role: z.string({ required_error: 'Role is required' }),
-    username: z.string({
-        required_error: "username is required"
-    }).min(6, {message: "username should be at least 6 characters long"}),
+    profilePhoto: z.string({}),
     email: z.string({
         required_error: "email is required.",
     }).email({message: "invalid email address"}),
