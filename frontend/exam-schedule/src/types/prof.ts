@@ -1,34 +1,30 @@
 import {Course} from "@/types/profCourse.ts";
 
 export interface Prof {
-    profId?: number,
-    profFirstName: string,
-    profLastName: string,
-    profUsername: string,
+    Id?: number,
+    FirstName: string,
+    LastName: string,
     password:string,
-    passwordConfirmation:string,
-    profEmail: string,
-    role: string,
-    profGroup: string,
-    profFiliere: string,
-    profDepartement: string,
+    email: string,
+    group: string,
+    filiere: string,
+    departement: string,
     published?: boolean | null,
-    createdAt?: string | null,
-    updatedAt?: string | null;
-    deletedAt?: string | null;
-    profImage?: File | null,
+    profImage: File | null,
     coursesTeaching?: Course[],
     coursesSupervising?: Course[],
 }
 
 export interface CreateProf {
-    profFirstName: string,
-    profLastName: string,
-    profUsername: string,
-    profEmail: string,
-    profGroup: string,
-    profFiliere: string,
-    profDepartement: string,
+    FirstName: string,
+    LastName: string,
+    password:string,
+    email: string,
+    group: string,
+    filiere: string,
+    departement: string,
+    published?: boolean | null,
+    profImage: File | null,
     coursesTeaching?: Course[],
     coursesSupervising?: Course[],
 }
