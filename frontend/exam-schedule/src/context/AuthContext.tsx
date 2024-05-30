@@ -67,7 +67,7 @@ export const UserProvider = ({ children }: Props) => {
                         title: "Success",
                         description: "You have been logged in successfully",
                     })
-                    navigate("/Dashboard");
+                    navigate("/admin");
                 }
             })
             .catch((e) => {
@@ -114,11 +114,8 @@ export const UserProvider = ({ children }: Props) => {
     };
 
     const loginUser = async (email: string, password: string) => {
-<<<<<<< HEAD
-        await axios.post("http://localhost:5014/api/account/signin", {
-=======
-        await axios.post<UserProfil>("/Auth/login", {
->>>>>>> e31f8249ad1ec931e3ae652d794423a89eb2e7e2
+
+        await axios.post<UserProfil>("http://localhost:8080/Auth/login", {
             email: email,
             password: password,
         })
@@ -139,7 +136,7 @@ export const UserProvider = ({ children }: Props) => {
                         title: "Success",
                         description: "You have been logged in successfully",
                     })
-                        navigate("/Dashboard");
+                        navigate("/admin");
                 }
             })
             .catch((e) => {

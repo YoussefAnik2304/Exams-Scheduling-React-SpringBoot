@@ -16,7 +16,6 @@ import NotFoundPage from "@/Pages/NotFoundPage.tsx";
 import DefaultLayoutHome from "@/layout/DefaultLayoutHome.tsx";
 import ProfilePage from "@/Pages/ProfilePage.tsx";
 import CreateProfPage from "@/Pages/CreateProfPage.tsx";
-import ExamForm1 from "@/components/ExamForm1.tsx";
 import HomePage from "@/Pages/HomePage.tsx";
 
 
@@ -25,7 +24,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            { path: "", element: <CreateProfPage/> },
+            { path: "", element: <HomePage/> },
             { path: "login", element: <LoginPage /> },
             { path: "register", element: <SignupPage /> },
             { path: "unauthorized", element: <UnAuthorized /> },
@@ -43,9 +42,7 @@ export const router = createBrowserRouter([
             {
                 path: "/admin",
                 element:
-                    <ProtectedRoute allowedRoles={["Admin"]}>
                         <DefaultLayoutAdmin/>,
-                    </ProtectedRoute>,
                 children: [
                     {
                         path: "prof/edit",
