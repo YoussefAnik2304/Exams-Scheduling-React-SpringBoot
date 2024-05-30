@@ -1,16 +1,16 @@
 export type UserProfil = {
     userId?: string | null,
-    userRole?: string | null,
-    username: string,
     email: string,
     password?: string | null,
     firstName: string,
     lastName: string,
-    phone: string,
-    role: string,
     profilPhoto: string,
-    createdAt: string,
-    token: string,
+    access_token: string,
+}
+
+export type LoginDto = {
+    email:string,
+    password:string
 }
 
 export type User = {
@@ -29,10 +29,7 @@ export type User = {
 export type RegisterUser = {
     email: string,
     password: string,
-    username: string,
     firstName: string,
     lastName: string,
-    phone?: string | null,
-    role: string,
     profilePhoto?: File | null,
 }

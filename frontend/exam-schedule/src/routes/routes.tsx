@@ -16,6 +16,7 @@ import NotFoundPage from "@/Pages/NotFoundPage.tsx";
 import DefaultLayoutHome from "@/layout/DefaultLayoutHome.tsx";
 import ProfilePage from "@/Pages/ProfilePage.tsx";
 import CreateProfPage from "@/Pages/CreateProfPage.tsx";
+import ExamForm1 from "@/components/ExamForm1.tsx";
 import HomePage from "@/Pages/HomePage.tsx";
 
 
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: <App />,
         children: [
-            { path: "", element: <HomePage/> },
+            { path: "", element: <CreateProfPage/> },
             { path: "login", element: <LoginPage /> },
             { path: "register", element: <SignupPage /> },
             { path: "unauthorized", element: <UnAuthorized /> },
