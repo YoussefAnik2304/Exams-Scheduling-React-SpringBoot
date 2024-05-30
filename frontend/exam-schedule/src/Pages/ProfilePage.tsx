@@ -24,7 +24,6 @@ import {editProfileFormSchema} from "@/zod/schemas/profile-schema.ts";
 import {useAuth} from "@/context/AuthContext.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import {GetDecodedToken} from "@/helpers/Helpers.tsx";
-import {HOST} from "@/context/ProfsContext.tsx";
 
 export default function ProfilePage() {
     const {updateUser} = useAuth();
@@ -72,11 +71,11 @@ export default function ProfilePage() {
             <CardContent className="p-4 md:p-6">
                 <div className="space-y-4">
                     <Card className="bg-card border-0 shadow-none rounded-xl overflow-hidden">
-                        <CardHeader className="relative w-full h-28 md:h-36 bg-gradient-to-r from-pink-400 to-blue-500 mb-12 md:mb-16">
-                            <div className="h-28  md:h-36 w-28  md:w-36 border-4 border-white rounded-full absolute top-1/2 left-6 md:left-12">
-                                <img className="h-full w-full object-cover rounded-full" src={user?.profilPhoto ? HOST + user.profilPhoto : "/placeholder-user.jpg"}/>
-                            </div>
-                        </CardHeader>
+                        {/*<CardHeader className="relative w-full h-28 md:h-36 bg-gradient-to-r from-pink-400 to-blue-500 mb-12 md:mb-16">*/}
+                        {/*    <div className="h-28  md:h-36 w-28  md:w-36 border-4 border-white rounded-full absolute top-1/2 left-6 md:left-12">*/}
+                        {/*        <img className="h-full w-full object-cover rounded-full" src={user?.profilPhoto ? HOST + user.profilPhoto : "/placeholder-user.jpg"}/>*/}
+                        {/*    </div>*/}
+                        {/*</CardHeader>*/}
                         <CardContent className="p-6">
                             <div className="flex items-center justify-between">
                                 <p className="text-xl md:text-3xl font-medium mb-4">{user?.firstName + " " + user?.lastName}<Badge

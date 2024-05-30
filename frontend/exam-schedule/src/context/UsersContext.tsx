@@ -3,7 +3,7 @@ import {User} from "@/types/user.ts";
 import React, {createContext, useState} from "react";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
 import {ErrorHandler} from "@/helpers/ErrorHandler.tsx";
-import {AxiosWithAuth} from "@/api/axios.ts";
+import {HOST} from "@/api/axios.ts";
 
 
 type UsersContextType = {

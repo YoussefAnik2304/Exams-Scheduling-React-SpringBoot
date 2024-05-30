@@ -15,4 +15,10 @@
 export interface Course {
     courseId?: number,
     courseTitle: string,
+    typeElement: TypeElement,
+    nbrStudents: string
+}
+
+export interface TypeElement {
+    titre: string,
 }

@@ -22,7 +22,7 @@ export type User = {
     phone: string,
     role: string,
     activeStatus: boolean,
-    profilePhoto?: string | null,
+    profilePhoto: string,
     createdAt: string,
 }
 
@@ -31,5 +31,5 @@ export type RegisterUser = {
     password: string,
     firstName: string,
     lastName: string,
-    profilePhoto?: File | null,
+    profilePhoto: string,
 }
