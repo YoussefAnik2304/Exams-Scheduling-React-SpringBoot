@@ -37,7 +37,8 @@ public class AuthenticationService {
     Admin admin=new Admin(request.getFirstName(),
             request.getLastName(),
             request.getEmail(),
-            passwordEncoder.encode(request.getPassword())
+            passwordEncoder.encode(request.getPassword()),
+            request.getProfilePhoto()
             );
     // Save the Admin object
     Admin savedAdmin = adminDao.save(admin);
