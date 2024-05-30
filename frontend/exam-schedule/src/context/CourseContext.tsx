@@ -36,7 +36,7 @@ export const CoursesProvider  = ({ children } : Props) => {
                 showToast("Something went wrong!", ErrorMessage);
             });
     }
-
+//ttttttttttttttttttttttttttttttttttttttttt
     const updateCourse = async (Course: Course) => {
         const formData = new FormData();
         formData.append("courseTitle", Course.courseTitle);
