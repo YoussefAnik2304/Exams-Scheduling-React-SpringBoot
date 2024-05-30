@@ -142,7 +142,7 @@ export const UserProvider = ({ children }: Props) => {
     };
 
     const loginUser = async (email: string, password: string) => {
-        await axios.post<UserProfil>("http://localhost:5014/api/account/signin", {
+        await axios.post("http://localhost:5014/api/account/signin", {
             email: email,
             password: password,
         })
