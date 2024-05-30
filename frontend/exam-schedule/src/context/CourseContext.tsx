@@ -6,6 +6,7 @@ import {result} from "@/types/helperTypes.ts";
 import { handleFetch } from "@/api/axios";
 
 
+
 type CoursesContextType = {
     createCourse: (Course : Course, profId: number) => void;
     updateCourse: (Course: Course, courseId : number, profId : number) => void;
@@ -24,6 +25,7 @@ export const CoursesProvider  = ({ children } : Props) => {
         formData.append("courseTitle", Course.courseTitle);
 
         await handleFetch.post<result<Course>>(COURSE_END_POINT + "/create/" + courseId, formData,
+
             { headers: {"Content-Type": 'multipart/form-data'}
             })
             .then((res) => {
@@ -41,6 +43,7 @@ export const CoursesProvider  = ({ children } : Props) => {
         formData.append("courseTitle", Course.courseTitle);
 
         await handleFetch.put<result<Course>>(COURSE_END_POINT + "/update/" + courseId + "/" + profId, formData,
+
             { headers: {"Content-Type": 'multipart/form-data'}
             })
             .then((res) => {

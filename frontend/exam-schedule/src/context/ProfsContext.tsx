@@ -5,7 +5,6 @@ import {useNavigate} from "react-router-dom";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
 import {Query, result, resultArray} from "@/types/helperTypes";
 import {AxiosWithAuth, AxiosWithoutToken} from "@/api/axios.ts";
-
 // import {
 //     baseObjectInputType,
 //     baseObjectOutputType, objectUtil,
@@ -233,6 +232,7 @@ type Props = { children: React.ReactNode };
 
 export const HOST = "http://localhost:8080"
 const EVENT_END_POINT = "http://localhost:8080/prof";
+
 
 const ProfsContext = createContext<ProfsContextType>({} as ProfsContextType);
 export const ProfsProvider  = ({ children } : Props) => {
