@@ -80,7 +80,7 @@ export async function handleFetch(url: string, method: string, body?: any): Prom
         };
 
         // Include request body for non-GET requests
-        if (method !== 'GET' && body) {
+        if (method !== 'GET' && method !== 'DELETE' && body) {
             axiosConfig.data = body;
         }
 
