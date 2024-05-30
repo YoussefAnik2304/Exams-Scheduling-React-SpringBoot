@@ -3,7 +3,8 @@ import {ErrorHandler} from "@/helpers/ErrorHandler.tsx";
 import {Course} from "@/types/profCourse.ts";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
 import {result} from "@/types/helperTypes.ts";
-import { AxiosWithAuth } from "@/api/axios";
+import { handleFetch } from "@/api/axios";
+
 
 
 type CoursesContextType = {
@@ -23,7 +24,8 @@ export const CoursesProvider  = ({ children } : Props) => {
         const formData = new FormData();
         formData.append("courseTitle", Course.courseTitle);
 
-        await AxiosWithAuth.post<result<Course>>(COURSE_END_POINT + "/create/" + courseId, formData,
+        await handleFetch.post<result<Course>>(COURSE_END_POINT + "/create/" + courseId, formData,
+
             { headers: {"Content-Type": 'multipart/form-data'}
             })
             .then((res) => {
@@ -40,7 +42,8 @@ export const CoursesProvider  = ({ children } : Props) => {
         const formData = new FormData();
         formData.append("courseTitle", Course.courseTitle);
 
-        await AxiosWithAuth.put<result<Course>>(COURSE_END_POINT + "/update/" + courseId + "/" + profId, formData,
+        await handleFetch.put<result<Course>>(COURSE_END_POINT + "/update/" + courseId + "/" + profId, formData,
+
             { headers: {"Content-Type": 'multipart/form-data'}
             })
             .then((res) => {
@@ -55,7 +58,7 @@ export const CoursesProvider  = ({ children } : Props) => {
 
     const deleteCourse = async (courseId : number, profId : number) => {
 
-        await AxiosWithAuth.delete<result<Course>>(COURSE_END_POINT + "/delete/" + courseId + "/" + profId)
+        await handleFetch.delete<result<Course>>(COURSE_END_POINT + "/delete/" + courseId + "/" + profId)
             .then((res) => {
                 const resultMessage = res.data.resultDescription.loggingMessage;
                 showToast("Success", resultMessage);

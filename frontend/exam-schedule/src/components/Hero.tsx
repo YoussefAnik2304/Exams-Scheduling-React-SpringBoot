@@ -9,7 +9,7 @@ export function Hero() {
   const handleBrowseClick = () => {
     if(isLoggedIn()){
       const token = GetDecodedToken();
-      token.role === "Admin" ? navigate("/admin/events") : navigate("/user/events") ;
+      token.role === "Admin" ? navigate("/admin/profs") : navigate("/user/profs") ;
     }
     else
       navigate("/login");

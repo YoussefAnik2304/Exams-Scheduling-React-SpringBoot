@@ -29,7 +29,7 @@ interface RouteProps {
 
 const routeList: RouteProps[] = [
     {
-        href: "#event",
+        href: "#formation",
         label: "Formation",
     },
     {
@@ -50,7 +50,7 @@ export function NavBarHome() {
     const handelClick = () => {
         if(isLoggedIn()) {
             const decodedToken = GetDecodedToken();
-            decodedToken.role === "Admin" ? navigate("/admin/events") : navigate("/user/events");
+            decodedToken.role === "Admin" ? navigate("/admin/profs") : navigate("/user/profs");
         }
     }
     return (
