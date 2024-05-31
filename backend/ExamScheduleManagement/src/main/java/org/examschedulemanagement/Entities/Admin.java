@@ -18,7 +18,7 @@ public class Admin extends Personnel{
     @OneToMany(mappedBy = "abscenceController",cascade = CascadeType.ALL)
     private List<Surveillance> surveillances;
 
-    public Admin( String firstName, String lastName, String email, String password) {
-        super( firstName, lastName, email, password);
+    public Admin( String firstName, String lastName, String email, String password,String profilePhoto) {
+        super( firstName, lastName, email, password,profilePhoto);
     }
 }

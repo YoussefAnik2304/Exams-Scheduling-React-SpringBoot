@@ -36,6 +36,7 @@ public class AuthenticationService {
             .password(passwordEncoder.encode(request.getPassword()))
             .build();
 */
+
       Admin existing = adminDao.getAdminByEmail(request.getEmail());
       String jwtToken;
       if (existing == null) {
@@ -47,6 +48,7 @@ public class AuthenticationService {
           Admin savedAdmin = adminDao.save(admin);
           jwtToken = jwtService.generateToken(savedAdmin);
       } else jwtToken = jwtService.generateToken(existing);
+
 
       // Save the Admin object
 
