@@ -10,7 +10,6 @@ export interface Prof {
     filiere: string,
     departement: string,
     published?: boolean | null,
-    profImage: File | null,
     coursesTeaching?: Course[],
     coursesSupervising?: Course[],
 }
@@ -24,7 +23,6 @@ export interface CreateProf {
     filiere: string,
     departement: string,
     published?: boolean | null,
-    profImage: File | null,
     coursesTeaching?: Course[],
     coursesSupervising?: Course[],
 }

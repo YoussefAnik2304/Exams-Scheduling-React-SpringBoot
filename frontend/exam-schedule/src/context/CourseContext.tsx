@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 
 type CoursesContextType = {
-    createCourse: (Course : Course) => void;
-    updateCourse: (Course: Course, courseId : number) => void;
-    deleteCourse: (courseId : number) => void;
-}
+    createCourse: (course: Course) => Promise<void>;
+    updateCourse: (course: Course, courseId: number) => Promise<void>;
+    deleteCourse: (courseId: number) => Promise<void>;
+    getCourse: (courseId: number) => Promise<Course>;
+    getCourses: () => Promise<Course[]>;
+};
 
 type Props = { children: React.ReactNode };
 
@@ -71,11 +73,42 @@ export const CoursesProvider  = ({ children } : Props) => {
             });
     };
 
+    const getCourse = async (courseId: number): Promise<Course> => {
+        try {
+            const response = await handleFetch(`Courses/${courseId}`, "GET");
+            const resultMessage = response.data.resultDescription.loggingMessage;
+            showToast("Success", resultMessage);
+            return response.data; // Ensure this returns the course data
+        } catch (error) {
+            const ErrorMessage = ErrorHandler(error);
+            showToast("Something went wrong!", ErrorMessage);
+            throw error; // Rethrow the error to be handled by the caller
+        }
+    };
+
+    const getCourses = async (): Promise<Course[]> => {
+        try {
+            const response = await handleFetch(`Courses/List`, "GET");
+            const resultMessage = response.data.resultDescription.loggingMessage;
+            showToast("Success", resultMessage);
+            return response.data; // Ensure this returns the list of courses
+        } catch (error) {
+            const ErrorMessage = ErrorHandler(error);
+            showToast("Something went wrong!", ErrorMessage);
+            throw error; // Rethrow the error to be handled by the caller
+        }
+    };
+
+
+
+
     return (
         <CoursesContext.Provider value={{
             createCourse,
             updateCourse,
             deleteCourse,
+            getCourse,
+            getCourses,
             }}>
             {children}
         </CoursesContext.Provider>

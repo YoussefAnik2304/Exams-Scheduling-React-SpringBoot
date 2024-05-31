@@ -1,36 +1,73 @@
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs.tsx";
 import ProfInfos from "@/components/profInfos.tsx";
 import ProfCourseViewPage from "@/Pages/ProfCourseViewPage.tsx";
+import { useProfs } from "@/context/ProfsContext.tsx";
+import { Prof } from "@/types/prof.ts";
+import { Button } from "@/components/ui/button"; // Adjust the import path as needed
 
-import {useEffect} from "react";
-import {useProfs} from "@/context/ProfsContext.tsx";
-import {useLocation} from "react-router-dom";
-
+interface LocationState {
+    profId: number;
+}
 
 export default function ProfViewPage() {
     const location = useLocation();
-    const { prof, fetchProfById } = useProfs();
+    const navigate = useNavigate();
+    const { getProf, deleteProf } = useProfs();
+    const [prof, setProf] = useState<Prof | null>(null);
+
     useEffect(() => {
-        fetchProfById(location.state.profId);
-    }, []);
-    return(
-        <section className="space-y-8">
-            {prof && <ProfInfos prof={prof}/>}
-            <Tabs defaultValue="profCourses" className="space-y-4">
-                <div className="px-3 md:px-6">
-                    <TabsList className="bg-transparent">
-                        <TabsList className="bg-transparent space-x-1 md:space-x-2">
-                            <TabsTrigger className="data-[state=active]:bg-primary/10 bg-muted/30 px-3 py-2 md:px-4 md:py-3 rounded-full"  value="profCourses">Courses</TabsTrigger>
-                        </TabsList>
-                    </TabsList>
+        const fetchProf = async () => {
+            try {
+                const locationState = location.state as LocationState;
+                if (locationState && locationState.profId) {
+                    const profData = await getProf(locationState.profId);
+                    setProf(profData);
+                } else {
+                    throw new Error("No professor ID found in location state");
+                }
+            } catch (error) {
+                console.error("Error fetching professor:", error instanceof Error ? error.message : error);
+            }
+        };
+
+        fetchProf();
+    }, [getProf, location.state]);
+
+    const handleEdit = () => {
+        navigate(`/edit-prof/${prof?.Id}`, { state: { prof } });
+    };
+
+    const handleDelete = async () => {
+        if (prof && prof.Id) {
+            await deleteProf(prof.Id);
+            navigate("/profs");
+        }
+    };
+
+    return (
+        <div>
+            <h1>Professor View Page</h1>
+            {prof && <ProfInfos prof={prof} />}
+            {prof && (
+                <div className="flex space-x-4">
+                    <Button type="button" onClick={handleEdit} className="w-full bg-blue-500 text-white">
+                        Edit
+                    </Button>
+                    <Button type="button" onClick={handleDelete} className="w-full bg-red-500 text-white">
+                        Delete
+                    </Button>
                 </div>
+            )}
+            <Tabs defaultValue="profCourses">
+                <TabsList className="bg-transparent space-x-1 md:space-x-2">
+                    <TabsTrigger className="data-[state=active]:bg-primary/10 bg-muted/30 px-3 py-2 md:px-4 md:py-3 rounded-full" value="profCourses">Courses</TabsTrigger>
+                </TabsList>
                 <TabsContent value="profCourses">
-                    {prof && <ProfCourseViewPage prof={prof}/>}
-                </TabsContent>
-                <TabsContent value="profCourses">
-                    {prof && <ProfCourseViewPage prof={prof}/>}
+                    {prof && <ProfCourseViewPage prof={prof} />}
                 </TabsContent>
             </Tabs>
-        </section>
-    )
+        </div>
+    );
 }

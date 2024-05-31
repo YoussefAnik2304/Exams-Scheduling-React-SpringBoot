@@ -4,21 +4,23 @@ import EditProfCoursePage from "@/Pages/EditProfCoursePage.tsx";
 import {useLocation} from "react-router-dom";
 import {useProfs} from "@/context/ProfsContext.tsx";
 import {useEffect, useState} from "react";
+import { Prof } from "@/types/prof.ts";
+
 
 export default function ProfViewAdminPage() {
     const location = useLocation();
-    const { prof, fetchProfById } = useProfs();
+    const { getProf } = useProfs();
     const [partnerChanged, setCourseChanges] = useState<boolean>(false);
     const handleCourseChange = (changed : boolean ) => {
         setCourseChanges(changed);
     }
     useEffect(() => {
-        fetchProfById(location.state.profId);
+        getProf(location.state.profId);
     }, [partnerChanged]);
 
     return(
         <section className="space-y-8">
-            {prof && <EditProfInfos  prof={prof}/>}
+            {Prof && <EditProfInfos  prof={prof}/>}
             <Tabs defaultValue="profOrganizers" className="space-y-4">
                 <div className="px-4 md:px-6">
                     <TabsList className="bg-transparent space-x-1 md:space-x-2">

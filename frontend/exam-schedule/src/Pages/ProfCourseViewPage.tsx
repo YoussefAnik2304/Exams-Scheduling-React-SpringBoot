@@ -1,5 +1,5 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import ProfCourseView from "@/components/ProfCourseView.tsx";
+import ProfCourseView from "@/components/CourseView.tsx";
 import {Prof} from "@/types/prof.ts";
 
 type ProfCourseView = {

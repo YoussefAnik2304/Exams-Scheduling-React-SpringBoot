@@ -10,6 +10,8 @@ type ProfsContextType = {
     createProf: (prof: Prof) => void;
     updateProf: (prof: Prof, profId: number) => void;
     deleteProf: (profId: number) => void;
+    getProf: (profId: number) => Promise<Prof>;
+    getProfs: () => Promise<Prof[]>;
 };
 
 type Props = { children: React.ReactNode };
@@ -83,12 +85,40 @@ export const ProfsProvider = ({ children }: Props) => {
             });
     };
 
+    const getProf = async (profId: number): Promise<Prof> => {
+        try {
+            const response = await handleFetch(`Professors/${profId}`, "GET");
+            const resultMessage = response.data.resultDescription.loggingMessage;
+            showToast("Success", resultMessage);
+            return response.data || {};
+        } catch (error) {
+            const errorMessage = ErrorHandler(error);
+            showToast("Something went wrong!", errorMessage);
+            throw error;
+        }
+    };
+
+    const getProfs = async (): Promise<Prof[]> => {
+        try {
+            const response = await handleFetch(`Professors/List`, "GET");
+            const resultMessage = response.data.resultDescription.loggingMessage;
+            showToast("Success", resultMessage);
+            return response.data;
+        } catch (error) {
+            const errorMessage = ErrorHandler(error);
+            showToast("Something went wrong!", errorMessage);
+            throw error;
+        }
+    };
+
     return (
         <ProfsContext.Provider
             value={{
                 createProf,
                 updateProf,
                 deleteProf,
+                getProf,
+                getProfs,
             }}
         >
             {children}

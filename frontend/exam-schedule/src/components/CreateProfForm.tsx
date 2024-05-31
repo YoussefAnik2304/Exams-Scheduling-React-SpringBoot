@@ -54,7 +54,7 @@ export default function CreateProfForm() {
     }
 
     function onSubmitCourseForm(values: z.infer<typeof CourseFormSchema>) {
-        appendCourse({courseTitle: values.courseTitle});
+        appendCourse({courseTitle: values.titre});
         setCourseDialogOpen(false);
     }
 
@@ -231,7 +231,7 @@ export default function CreateProfForm() {
                                                 <form onSubmit={courseForm.handleSubmit(onSubmitCourseForm)} className="space-y-6">
                                                     <FormField
                                                         control={courseForm.control}
-                                                        name="courseTitle"
+                                                        name="titre"
                                                         render={({ field }) => (
                                                             <FormItem>
                                                                 <FormLabel>Course Name</FormLabel>
