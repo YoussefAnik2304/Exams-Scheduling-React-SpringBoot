@@ -4,7 +4,7 @@ import {Course} from "@/types/Course.ts";
 type CourseProps = {
     course : Course
 }
-export default function ProfCourseView({course}: CourseProps) {
+export default function CourseView({course}: CourseProps) {
 
     return(
         <Card className="bg-card border-0 rounded-xl">
@@ -15,7 +15,7 @@ export default function ProfCourseView({course}: CourseProps) {
                     </Avatar>*/}
                     <div className="w-full">
                         <div className="flex flex-col justify-center items-center gap-y-2">
-                            <h3 className="text-xl font-medium">{course.courseTitle}</h3>
+                            <h3 className="text-xl font-medium">{course.titre}</h3>
                             <span className="flex gap-x-2 text-sm text-muted-foreground">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                      className="size-5">

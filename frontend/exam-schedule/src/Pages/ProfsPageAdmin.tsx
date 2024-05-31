@@ -11,7 +11,7 @@ import {Query} from "@/types/helperTypes.ts";
 
 export default function ProfsPageAdmin() {
 
-    const { profs, totalPages, fetchProfs, fetchProfsTotalPages, fetchLatestProfs } = useProfs();
+    const { profs,  fetchProfs } = useProfs();
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const [query, setQuery] = useState<Query>({
