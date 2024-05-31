@@ -43,30 +43,33 @@ export const UserProvider = ({ children }: Props) => {
         setIsReady(true);
     }, []);
 
-    const registerUser = async (User : RegisterUser) => {
+    const registerUser = async (User :RegisterUser) => {
         const formData = new FormData();
-        formData.append("email", User.email);
-        formData.append("password", User.password);
         formData.append("firstName", User.firstName);
         formData.append("lastName", User.lastName);
-        formData.append("profilPhoto", User.profilePhoto);
-            await axios.post<UserProfil>( "http://localhost:8080/Auth/register", formData
-            ).then((res) => {
+        formData.append("email", User.email);
+        formData.append("password", User.password);
+    
+        await axios.post<UserProfil>("http://localhost:8080/Auth/register", formData,{
+            headers: {
+                "Content-Type": "application/json",
+            }
+    })
+            .then((res) => {
                 if (res) {
-                    const jwtToken = res?.data.access_token;
+                    const jwtToken = res.data.access_token;
                     localStorage.setItem("token", jwtToken);
                     const userObj = {
-                        email: res?.data.email,
-                        firstName: res?.data.firstName,
-                        lastName: res?.data.lastName,
-                        password: res?.data.password,
-                        profilPhoto: res?.data.profilPhoto,
+                        email: res.data.email,
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName,
+                        password: res.data.password
                     };
                     localStorage.setItem("loggedinuser", JSON.stringify(userObj));
                     toast({
                         title: "Success",
                         description: "You have been logged in successfully",
-                    })
+                    });
                     navigate("/admin");
                 }
             })
@@ -75,17 +78,16 @@ export const UserProvider = ({ children }: Props) => {
                 toast({
                     title: "Something went wrong!",
                     description: ErrorMessage,
-                })
+                });
             });
     };
-
+    
     const updateUser = async (User: RegisterUser) => {
         const formData = new FormData();
         formData.append("email", User.email);
         formData.append("password", User.password);
         formData.append("firstname", User.firstName);
         formData.append("lastname", User.lastName);
-        formData.append("Image", User.profilePhoto!);
         await handleFetch("/Auth/update","post",formData)
             .then((res) => {
                 if (res && res.data) {
@@ -94,7 +96,6 @@ export const UserProvider = ({ children }: Props) => {
                         email: result.email,
                         firstName: result.firstName,
                         lastName: result.lastName,
-                        profilPhoto: result.profilPhoto,
                     };
                     localStorage.setItem("loggedinuser", JSON.stringify(userObj));
                     const resultMessage = res.data.resultDescription.loggingMessage;
@@ -120,7 +121,7 @@ export const UserProvider = ({ children }: Props) => {
             password: password,
         })
             .then((res) => {
-                if (res && res.data) {
+                if (res && res.data && res.data.access_token!=null) {
 
                     const jwtToken = res?.data.access_token;
                     localStorage.setItem("token", jwtToken);
@@ -129,7 +130,6 @@ export const UserProvider = ({ children }: Props) => {
                         firstName: res?.data.firstName,
                         lastName: res?.data.lastName,
                         password: res?.data.password,
-                        profilPhoto: res?.data.profilPhoto,
                     };
                     localStorage.setItem("loggedinuser", JSON.stringify(userObj));
                     toast({

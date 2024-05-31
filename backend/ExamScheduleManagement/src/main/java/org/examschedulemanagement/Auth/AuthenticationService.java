@@ -1,6 +1,7 @@
 package org.examschedulemanagement.Auth;
 
 
+import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
 import org.examschedulemanagement.Dao.AdminDao;
 import org.examschedulemanagement.Dao.PersonnelDao;
@@ -26,7 +27,8 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
   public AuthenticationResponse register(RegisterRequest request) {
-    // Create an Admin object
+    System.out.println(request);
+      // Create an Admin object
    /* Admin admin = (Admin) Admin.builder()
             .firstName(request.getFirstname())
             .lastName(request.getLastname())
@@ -34,22 +36,28 @@ public class AuthenticationService {
             .password(passwordEncoder.encode(request.getPassword()))
             .build();
 */
-    Admin admin=new Admin(request.getFirstName(),
-            request.getLastName(),
-            request.getEmail(),
-            passwordEncoder.encode(request.getPassword()),
-            request.getProfilePhoto()
-            );
-    // Save the Admin object
-    Admin savedAdmin = adminDao.save(admin);
+      Admin existing = adminDao.getAdminByEmail(request.getEmail());
+      String jwtToken;
+      if (existing == null) {
+          Admin admin = new Admin(request.getFirstName(),
+                  request.getLastName(),
+                  request.getEmail(),
+                  passwordEncoder.encode(request.getPassword())
+          );
+          Admin savedAdmin = adminDao.save(admin);
+          jwtToken = jwtService.generateToken(savedAdmin);
+      } else jwtToken = jwtService.generateToken(existing);
 
-    // Generate JWT token for the saved Admin
-    String jwtToken = jwtService.generateToken(savedAdmin);
+      // Save the Admin object
 
-    // Return the authentication response with the JWT token
-    return AuthenticationResponse.builder()
-            .accessToken(jwtToken)
-            .build();
+
+      // Generate JWT token for the saved Admin
+
+
+      // Return the authentication response with the JWT token
+      return AuthenticationResponse.builder()
+              .accessToken(jwtToken)
+              .build();
   }
 
 
@@ -70,7 +78,7 @@ public class AuthenticationService {
     }
 
     // Authentication successful, retrieve the authenticated user
-    Admin admin = adminDao.getAdminByEmail(request.getEmail()).orElseThrow();
+    Admin admin = adminDao.getAdminByEmail(request.getEmail());
 
     // Verify that the authenticated user is an admin
 

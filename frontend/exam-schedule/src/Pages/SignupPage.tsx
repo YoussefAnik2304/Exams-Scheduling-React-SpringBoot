@@ -17,8 +17,6 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 
 import {useAuth} from "@/context/AuthContext.tsx";
 import {PasswordInput} from "@/components/PasswordInput.tsx";
-import {ChangeEvent, useState} from "react";
-import {Label} from "@/components/ui/label.tsx";
 
 export default function SignupPage() {
 
@@ -35,23 +33,9 @@ export default function SignupPage() {
   })
     const { registerUser } = useAuth();
   function onSubmit(values: z.infer<typeof signupFormSchema>) {
-      values.profilePhoto=filePath;
     registerUser(values);
   }
-    const [filePath, setFilePath] = useState('');
-
-
-
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files ? event.target.files[0] : null;
-
-        if (file) {
-            setFilePath(URL.createObjectURL(file)); // Get the local path (blob URL) for the file
-        } else {
-            setFilePath(''); // Reset if no file is selected
-        }
-    };
-
+    
   return (
     <div className="w-full flex md:h-screen content-center md:content-stretch lg:grid-cols-2">
       <div className="hidden lg:flex flex-col gap-y-6 justify-center px-36 bg-gradient-to-b from-[#442bc6] to-[#534dcb] lg:block">
@@ -85,16 +69,6 @@ export default function SignupPage() {
                 <Form {...signupForm}>
                     <form onSubmit={signupForm.handleSubmit(onSubmit)} className="space-y-8">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="grid w-full max-w-sm items-center gap-1.5">
-                                <Label htmlFor="picture">Picture</Label>
-                                <Input id="picture" type="file" onChange={handleFileChange} />
-                                {filePath && (
-                                    <div className="flex flex-col items-center space-y-2">
-                                        <p className="text-sm text-gray-700">File Path: {filePath}</p>
-                                        <img src={filePath} alt="Selected file preview" className="w-32 h-32 object-cover rounded-lg shadow-md" />
-                                    </div>
-                                )}
-                            </div>
                             <FormField
                                 control={signupForm.control}
                                 name="firstName"

@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface AdminDao extends JpaRepository<Admin,Long> {
     boolean existsAdminByEmail(String email);
-    Optional<Admin> getAdminByEmail(String email);
+    Admin getAdminByEmail(String email);
 
 }
