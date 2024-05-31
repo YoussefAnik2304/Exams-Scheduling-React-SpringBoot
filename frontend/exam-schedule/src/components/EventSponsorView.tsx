@@ -1,5 +1,5 @@
 import {Card, CardContent} from "@/components/ui/card.tsx";
-import {Sponsor} from "@/types/profCourse.ts";
+import {Sponsor} from "@/types/Course.ts";
 
 type SponsorProps = {
     sponsor : Sponsor

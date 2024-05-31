@@ -1,15 +1,15 @@
 import React, {createContext} from "react";
 import {ErrorHandler} from "@/helpers/ErrorHandler.tsx";
-import {Course} from "@/types/profCourse.ts";
+import {Course} from "@/types/Course.ts";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
 import { handleFetch } from "@/api/axios";
 import { useNavigate } from "react-router-dom";
 
 
 type CoursesContextType = {
-    createCourse: (Course : Course, profId: number) => void;
-    updateCourse: (Course: Course, courseId : number, profId : number) => void;
-    deleteCourse: (courseId : number, profId : number) => void;
+    createCourse: (Course : Course) => void;
+    updateCourse: (Course: Course, courseId : number) => void;
+    deleteCourse: (courseId : number) => void;
 }
 
 type Props = { children: React.ReactNode };
@@ -20,9 +20,9 @@ export const CoursesProvider  = ({ children } : Props) => {
     const navigate = useNavigate();
     const createCourse = async (Course: Course) => {
         const formData = new FormData();
-        formData.append("courseTitle", Course.courseTitle);
+        formData.append("courseTitle", Course.titre);
         formData.append("nbrStudents", Course.nbrStudents);
-        formData.append("typeElement", Course.typeElement.titre);
+        formData.append("typeElement", JSON.stringify(Course.typeElement));
 
         await handleFetch("Courses/add","post",formData)
             .then((res) => {
@@ -36,10 +36,10 @@ export const CoursesProvider  = ({ children } : Props) => {
                 showToast("Something went wrong!", ErrorMessage);
             });
     }
-//ttttttttttttttttttttttttttttttttttttttttt
+
     const updateCourse = async (Course: Course) => {
         const formData = new FormData();
-        formData.append("courseTitle", Course.courseTitle);
+        formData.append("courseTitle", Course.titre);
         formData.append("nbrStudents", Course.nbrStudents);
         formData.append("typeElement", Course.typeElement.titre);
 

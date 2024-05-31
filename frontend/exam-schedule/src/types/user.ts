@@ -4,8 +4,13 @@ export type UserProfil = {
     password?: string | null,
     firstName: string,
     lastName: string,
-    profilPhoto: string,
     access_token: string,
+}
+export type RegisterForm={
+    email: string,
+    password?: string | null,
+    firstName: string,
+    lastName: string,
 }
 
 export type LoginDto = {
@@ -19,17 +24,11 @@ export type User = {
     email: string,
     firstName: string,
     lastName: string,
-    phone: string,
-    role: string,
-    activeStatus: boolean,
-    profilePhoto: string,
-    createdAt: string,
 }
 
-export type RegisterUser = {
-    email: string,
-    password: string,
+export type RegisterUser = { 
     firstName: string,
     lastName: string,
-    profilePhoto: string,
+    email: string,
+    password: string
 }

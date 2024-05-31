@@ -1,4 +1,4 @@
-import {Course} from "@/types/profCourse.ts";
+import {Course} from "@/types/Course.ts";
 
 export interface Prof {
     Id?: number,

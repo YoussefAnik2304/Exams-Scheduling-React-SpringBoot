@@ -34,7 +34,6 @@ public  class Personnel implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    private String profilePhoto;
 
     public Personnel(String firstName, String lastName, String email, String password,String profilePhoto) {
         this.firstName = firstName;

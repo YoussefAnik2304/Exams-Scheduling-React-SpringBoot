@@ -55,12 +55,9 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 export const HOST = "http://localhost:8080";
-const baseUrl = 'http://localhost:8080/';
-export const AxiosWithoutToken = axios.create({
-    baseURL: baseUrl
-});
 
-interface FetchResponse {
+
+export interface FetchResponse {
     data: any;
     headers: any;
     status: number;
@@ -100,6 +97,6 @@ export async function handleFetch(url: string, method: string, body?: any): Prom
 }
 
 // Ensure this matches the import in AuthContext.tsx
-export { handleFetch as AxiosWithAuth };
+
 
 

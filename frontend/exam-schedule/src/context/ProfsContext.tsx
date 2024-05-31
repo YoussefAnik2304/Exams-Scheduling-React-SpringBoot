@@ -33,11 +33,11 @@ export const ProfsProvider = ({ children }: Props) => {
             formData.append("profImage", prof.profImage);
         }
 
-        await handleFetch("Profs/add", "POST", formData)
+        await handleFetch("Professors/add", "POST", formData)
             .then((res) => {
                 const resultMessage = res.data.resultDescription.loggingMessage;
                 showToast("Success", resultMessage);
-                navigate(`/Profs/${res.data.id}`);
+                navigate(`/Professors/${res.data.id}`);
             })
             .catch((e) => {
                 const errorMessage = ErrorHandler(e);
@@ -58,11 +58,11 @@ export const ProfsProvider = ({ children }: Props) => {
             formData.append("profImage", prof.profImage);
         }
 
-        await handleFetch(`Profs/update/${profId}`, "PUT", formData)
+        await handleFetch(`Professors/update/${profId}`, "PUT", formData)
             .then((res) => {
                 const resultMessage = res.data.resultDescription.loggingMessage;
                 showToast("Success", resultMessage);
-                navigate(`/Profs/${res.data.id}`);
+                navigate(`/Professors/${res.data.id}`);
             })
             .catch((e) => {
                 const errorMessage = ErrorHandler(e);
@@ -71,11 +71,11 @@ export const ProfsProvider = ({ children }: Props) => {
     };
 
     const deleteProf = async (profId: number) => {
-        await handleFetch(`Profs/delete/${profId}`, "DELETE")
+        await handleFetch(`Professors/delete/${profId}`, "DELETE")
             .then((res) => {
                 const resultMessage = res.data.resultDescription.loggingMessage;
                 showToast("Success", resultMessage);
-                navigate("/Profs");
+                navigate("/Professors");
             })
             .catch((e) => {
                 const errorMessage = ErrorHandler(e);
