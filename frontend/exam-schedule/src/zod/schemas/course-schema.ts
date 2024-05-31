@@ -14,9 +14,8 @@ import {z} from "zod";
 // })
 
 export const CourseFormSchema = z.object({
-    courseTitle: z.string({
-        required_error: "Organizer name is required.",
-    }).min(4, {message: "course Title should be at least 4 characters long"})
-        .max(25, {message: "Course Title should be no longer than 25 characters"}),
-
+    titre: z.string().min(1, "Course title is required"),
+    nbrStudents: z.string().min(1, "Number of students must be at least 1"),
+    type: z.string(),
 })
+
