@@ -31,27 +31,24 @@ export default function CreateProfForm() {
     const createProfForm = useForm<z.infer<typeof createProfFormSchema>>({
         resolver: zodResolver(createProfFormSchema),
         defaultValues: {
-            coursesTeaching: [],
         }
     })
 
-    const { fields: profCourses, append: appendCourse, remove: removeCourse } = useFieldArray({
-        name: "eventCourses",
+    const { fields: Courses, append: appendCourse, remove: removeCourse } = useFieldArray({
+        name: "Courses",
         control: createProfForm.control,
     })
     function onSubmit(values: z.infer<typeof createProfFormSchema>) {
-        const {profUsername, profEmail,profFirstName,profLastName,password,passwordConfirmation,profGroup,role,profDepartement,profFiliere} = values
+        const { email,FirstName,LastName,password,group,profImage,departement,filiere} = values
         const submittedProf : Prof  = {
-            profFirstName: profFirstName,
-            profLastName: profLastName,
-            profUsername: profUsername,
-            profEmail: profEmail,
-            role:role,
-            profGroup:profGroup,
-            profDepartement:profDepartement,
-            profFiliere:profFiliere,
+            FirstName: FirstName,
+            LastName: LastName,
+            email: email,
+            group:group,
+            profImage:profImage,
+            departement:departement,
+            filiere:filiere,
             password:password,
-            passwordConfirmation:passwordConfirmation,
         }
         createProf(submittedProf);
     }
@@ -121,7 +118,7 @@ export default function CreateProfForm() {
                                 />
                                 <FormField
                                     control={createProfForm.control}
-                                    name="profFirstName"
+                                    name="FirstName"
                                     render={({field}) => (
                                         <FormItem className="md:col-start-1">
                                             <FormLabel>First Name</FormLabel>
@@ -135,7 +132,7 @@ export default function CreateProfForm() {
                                 />
                                 <FormField
                                     control={createProfForm.control}
-                                    name="profLastName"
+                                    name="LastName"
                                     render={({field}) => (
                                         <FormItem>
                                             <FormLabel>Last Name</FormLabel>
@@ -149,21 +146,7 @@ export default function CreateProfForm() {
                                 />
                                 <FormField
                                     control={createProfForm.control}
-                                    name="profUsername"
-                                    render={({field}) => (
-                                        <FormItem>
-                                            <FormLabel>Username</FormLabel>
-                                            <FormControl>
-                                                <Input placeholder="Please enter your username"
-                                                       type="text" {...field} />
-                                            </FormControl>
-                                            <FormMessage/>
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={createProfForm.control}
-                                    name="profEmail"
+                                    name="email"
                                     render={({field}) => (
                                         <FormItem>
                                             <FormLabel>Email</FormLabel>
@@ -267,7 +250,7 @@ export default function CreateProfForm() {
                                         </Dialog>
                                     </Form>
                                 </div>
-                                {profCourses.map((field, index) => (
+                                {Courses.map((field, index) => (
                                     <Card className="bg-muted/30 border-0 rounded-xl" key={field.id}>
                                         <CardContent className="p-4">
                                             <div className="flex items-center gap-x-6">
@@ -286,85 +269,6 @@ export default function CreateProfForm() {
                                                                  className="size-5">
                                                                 <path strokeLinecap="round" strokeLinejoin="round"
                                                                       d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
-                                                            </svg>
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="mt-14">
-                            <div className="flex flex-nowrap items-center gap-x-4 mb-6">
-                                <div className="border-b w-[50px]"/>
-                                <span
-                                    className="text-md whitespace-nowrap text-foreground/80">Event Courses</span>
-                                <div className="border-b w-full"/>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="flex justify-end">
-                                    <Form {...courseForm}>
-                                        <Dialog open={courseDialogOpen} onOpenChange={setCourseDialogOpen}>
-                                            <DialogTrigger className="w-full flex justify-end">
-                                                <Button className="w-full md:w-fit space-x-2" type="reset">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                         strokeWidth={1.5} stroke="currentColor" className="size-5">
-                                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                                              d="M12 4.5v15m7.5-7.5h-15"/>
-                                                    </svg>
-                                                    <span>Add Course</span>
-                                                </Button>
-                                            </DialogTrigger>
-                                            <DialogContent>
-                                                <DialogHeader>
-                                                    <DialogTitle>Edit Course</DialogTitle>
-                                                    <DialogDescription>
-                                                        Make changes to Course here. Click save when you're done.
-                                                    </DialogDescription>
-                                                </DialogHeader>
-                                                <form onSubmit={courseForm.handleSubmit(onSubmitCourseForm)} className="space-y-6">
-                                                    <FormField
-                                                        control={courseForm.control}
-                                                        name="courseTitle"
-                                                        render={({ field }) => (
-                                                            <FormItem>
-                                                                <FormLabel>Course Name</FormLabel>
-                                                                <FormControl>
-                                                                    <Input type="text" {...field} />
-                                                                </FormControl>
-                                                                <FormMessage />
-                                                            </FormItem>
-                                                        )}
-                                                    />
-
-                                                    <DialogFooter>
-                                                        <Button onClick={courseForm.handleSubmit(onSubmitCourseForm)}>Save Changes</Button>
-                                                    </DialogFooter>
-                                                </form>
-                                            </DialogContent>
-                                        </Dialog>
-                                    </Form>
-                                </div>
-                                {profCourses.map((field, index) => (
-                                    <Card className="bg-muted/30 border-0 rounded-xl" key={field.id}>
-                                        <CardContent className="p-4">
-                                            <div className="flex items-center gap-x-6">
-                                                <Avatar className="h-12 w-12 md:h-16 md:w-16 bg-indigo-600 rounded-xl">
-                                                    <AvatarFallback
-                                                        className="bg-gradient-to-r from-rose-600 to-red-500 rounded-xl text-white text-lg md:text-2xl font-medium">{field.id.charAt(0).toUpperCase()}</AvatarFallback>
-                                                </Avatar>
-                                                <div className="w-full flex justify-between">
-                                                    <div className="grid gap-y-1">
-                                                        <h3 className="text-lg md:text-xl font-medium">{field.id}</h3>
-                                                    </div>
-                                                    <div className="flex justify-center items-center gap-x-2">
-                                                        <Button size="icon" variant="ghost" className="space-x-2" onClick={() => removeCourse(index)}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                 viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-                                                                 className="size-5">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
                                                             </svg>
                                                         </Button>
                                                     </div>

@@ -1,5 +1,5 @@
 import {Card, CardContent} from "@/components/ui/card.tsx";
-import {Course} from "@/types/profCourse.ts";
+import {Course} from "@/types/Course.ts";
 
 type CourseProps = {
     course : Course

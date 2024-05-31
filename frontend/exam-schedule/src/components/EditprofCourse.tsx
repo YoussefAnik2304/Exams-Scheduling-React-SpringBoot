@@ -21,7 +21,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import {Input} from "@/components/ui/input.tsx";
 import {CourseFormSchema} from "@/zod/schemas/course-schema.ts";
 import {useState} from "react";
-import {Course} from "@/types/profCourse.ts";
+import {Course} from "@/types/Course.ts";
 import {useCourse} from "@/context/CourseContext.tsx";
 
 type CourseProps = {

@@ -14,7 +14,7 @@
 
 export interface Course {
     courseId?: number,
-    courseTitle: string,
+    titre: string,
     typeElement: TypeElement,
     nbrStudents: string
 }

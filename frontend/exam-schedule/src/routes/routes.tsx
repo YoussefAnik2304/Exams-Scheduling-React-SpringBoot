@@ -10,13 +10,13 @@ import ProfViewPage from "@/Pages/ProfViewPage.tsx";
 import ProfViewAdminPage from "@/Pages/ProfViewAdminPage.tsx";
 import ProfsPageAdmin from "@/Pages/ProfsPageAdmin.tsx";
 import UsersPage from "@/Pages/UsersPage.tsx";
-import ProtectedRoute from "@/routes/ProtectedRoute.tsx";
 import UnAuthorized from "@/Pages/UnAuthorized.tsx";
 import NotFoundPage from "@/Pages/NotFoundPage.tsx";
 import DefaultLayoutHome from "@/layout/DefaultLayoutHome.tsx";
 import ProfilePage from "@/Pages/ProfilePage.tsx";
 import CreateProfPage from "@/Pages/CreateProfPage.tsx";
 import HomePage from "@/Pages/HomePage.tsx";
+import CreateCoursePage from "@/Pages/CreateCoursePage.tsx";
 
 
 export const router = createBrowserRouter([
@@ -45,72 +45,77 @@ export const router = createBrowserRouter([
                         <DefaultLayoutAdmin/>,
                 children: [
                     {
-                        path: "prof/edit",
-                        element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <ProfViewAdminPage/>
-                            </ProtectedRoute>
-                    },
-                    {
-                        path: "prof/create",
-                        element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <CreateProfPage/>
-                            </ProtectedRoute>
-                    },
-                    {
                         path: "profs",
                         element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <ProfsPageAdmin/>
-                            </ProtectedRoute>
+
+                            <ProfsPageAdmin/>
+
+                    },
+
+                    {
+                        path: "profs/create",
+                        element:
+
+                                <CreateProfPage/>
+
                     },
                     {
-                        path: "users",
+                        path: "profs/edit",
                         element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
+
+                                <ProfViewAdminPage/>
+
+                    },
+                    {
+                        path: "courses",
+                        element:
+
                                 <UsersPage/>
-                            </ProtectedRoute>
 
                     },
 
                     {
-                        path: "profile",
+                        path: "courses/create",
                         element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
-                                <ProfilePage/>
-                            </ProtectedRoute>
+
+                                <CreateCoursePage/>
+
+                    },
+                    {
+                        path: "courses/edit",
+                        element:
+
+                            <ProfilePage/>
+
                     },
                 ]
+
             },
             {
                 path: "/user",
                 element:
-                    <ProtectedRoute allowedRoles={["User"]}>
-                        <DefaultLayoutUser/>
-                    </ProtectedRoute>,
+
+                        <DefaultLayoutUser/>,
 
                 children: [
                     {
                         path: "profs",
                         element:
-                            <ProtectedRoute allowedRoles={["User"]}>
                                 <FormationsPage/>
-                            </ProtectedRoute>
                     },
                     {
                         path: "prof/view",
                         element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
+
                                 <ProfViewPage/>
-                            </ProtectedRoute>
+
                     },
                     {
                         path: "profile",
                         element:
-                            <ProtectedRoute allowedRoles={["Admin"]}>
+
                                 <ProfilePage/>
-                            </ProtectedRoute>
+
                     },
                 ]
             },
