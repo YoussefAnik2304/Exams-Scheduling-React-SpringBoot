@@ -2,7 +2,7 @@ import React, {createContext} from "react";
 import {ErrorHandler} from "@/helpers/ErrorHandler.tsx";
 import {Course} from "@/types/Course.ts";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
-import { handleFetch } from "@/api/axios";
+import {FetchResponse, handleFetch} from "@/api/axios";
 import { useNavigate } from "react-router-dom";
 
 
@@ -20,24 +20,42 @@ const CoursesContext = createContext<CoursesContextType>({} as CoursesContextTyp
 export const CoursesProvider  = ({ children } : Props) => {
     const {showToast} = useToastHelper();
     const navigate = useNavigate();
-    const createCourse = async (Course: Course) => {
+
+    // const createCourse = async (Course: Course) => {
+    //     const formData = new FormData();
+    //     formData.append("courseTitle", Course.titre);
+    //     formData.append("nbrStudents", Course.nbrStudents.toString());
+    //     formData.append("typeElement", JSON.stringify(Course.typeElement));
+    //
+    //     await handleFetch("Courses/add","post",formData)
+    //         .then((res) => {
+    //             const resultMessage = res.data.resultDescription.loggingMessage;
+    //             showToast("Success", resultMessage);
+    //
+    //             navigate(`/Courses/${res.data.id}`);
+    //
+    //         }).catch((e) => {
+    //             const ErrorMessage = ErrorHandler(e);
+    //             showToast("Something went wrong!", ErrorMessage);
+    //         });
+    // }
+
+    const createCourse = async (course: Course) => {
         const formData = new FormData();
-        formData.append("courseTitle", Course.titre);
-        formData.append("nbrStudents", Course.nbrStudents);
-        formData.append("typeElement", JSON.stringify(Course.typeElement));
+        formData.append("courseTitle", course.titre);
+        formData.append("nbrStudents", course.nbrStudents.toString());
+        formData.append("typeElement", JSON.stringify(course.typeElement));
 
-        await handleFetch("Courses/add","post",formData)
-            .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
-
-                navigate(`/Courses/${res.data.id}`);
-
-            }).catch((e) => {
-                const ErrorMessage = ErrorHandler(e);
-                showToast("Something went wrong!", ErrorMessage);
-            });
-    }
+        try {
+            const res: FetchResponse = await handleFetch("Courses/add", "POST", formData);
+            const resultMessage = res.data.resultDescription.loggingMessage;
+            showToast("Success", resultMessage);
+            navigate(`/Courses/${res.data.id}`);
+        } catch (e) {
+            const errorMessage = ErrorHandler(e);
+            showToast("Something went wrong!", errorMessage);
+        }
+    };
 
     const updateCourse = async (Course: Course) => {
         const formData = new FormData();

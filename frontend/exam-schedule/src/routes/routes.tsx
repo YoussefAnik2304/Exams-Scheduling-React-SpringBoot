@@ -1,5 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
-//  import Dashboard from "@/Pages/Dashboard.tsx";
+import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
 import LoginPage from "@/Pages/LoginPage.tsx";
 import SignupPage from "@/Pages/SignupPage.tsx";
@@ -17,46 +16,53 @@ import CoursesViewPage from "@/Pages/CoursesViewPage.tsx";
 import ProfsViewPage from "@/Pages/ProfsViewPage.tsx";
 import EditProfPage from "@/Pages/EditProfPage.tsx";
 import EditCoursePage from "@/Pages/EditCoursePage.tsx";
-
+import GroupsViewPage from "@/Pages/GroupsViewPage.tsx";
+import CreateGroupPage from "@/Pages/CreateGroupPage.tsx";
+import EditGroupPage from "@/Pages/EditGroupPage.tsx";
+import GroupViewPage from "@/Pages/GroupViewPage.tsx";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
         children: [
-            { path: "", element: <HomePage/> },
+            { path: "", element: <HomePage /> },
             { path: "login", element: <LoginPage /> },
             { path: "register", element: <SignupPage /> },
             { path: "unauthorized", element: <UnAuthorized /> },
+            { path: "*", element: <NotFoundPage /> },
             {
-                path: "/home",
-                element: <DefaultLayoutHome/>,
+                path: "home",
+                element: <DefaultLayoutHome />,
                 children: [
-                    { path: "prof", element: <ProfViewPage/> }
-                ]
-            },
-            { path: "*", element: <NotFoundPage/> },
-            {
-                path: "/admin",
-                element: <DefaultLayoutAdmin/>,
-                children: [
-                    { path: "profs", element: <ProfsViewPage/> },
-                    { path: "profs/create", element: <CreateProfPage/> },
-                    { path: "profs/edit/:id", element: <EditProfPage/> },
-                    { path: "courses", element: <CoursesViewPage/> },
-                    { path: "courses/create", element: <CreateCoursePage/> },
-                    { path: "courses/edit/:id", element: <EditCoursePage/> },
-                ]
+                    { path: "prof", element: <ProfViewPage /> },
+                ],
             },
             {
-                path: "/user",
-                element: <DefaultLayoutUser/>,
+                path: "admin",
+                element: <DefaultLayoutAdmin />,
                 children: [
-                    { path: "profs", element: <ProfsViewPage/> },
-                    { path: "prof/view/:id", element: <ProfViewPage/> },
-                    { path: "profile", element: <ProfilePage/> },
-                ]
+                    { path: "profs", element: <ProfsViewPage /> },
+                    { path: "profs/create", element: <CreateProfPage /> },
+                    { path: "profs/edit/:id", element: <EditProfPage /> },
+                    { path: "courses", element: <CoursesViewPage /> },
+                    { path: "courses/create", element: <CreateCoursePage /> },
+                    { path: "courses/edit/:id", element: <EditCoursePage /> },
+                    { path: "Groups", element: <GroupsViewPage /> },
+                    { path: "Groups/create", element: <CreateGroupPage /> },
+                    { path: "Groups/edit/:groupId", element: <EditGroupPage /> },
+                    { path: "Groups/:groupId", element: <GroupViewPage /> },
+                ],
             },
-        ]
+            {
+                path: "user",
+                element: <DefaultLayoutUser />,
+                children: [
+                    { path: "profs", element: <ProfsViewPage /> },
+                    { path: "prof/view/:id", element: <ProfViewPage /> },
+                    { path: "profile", element: <ProfilePage /> },
+                ],
+            },
+        ],
     },
 ]);

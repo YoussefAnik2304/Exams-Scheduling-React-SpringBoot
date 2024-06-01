@@ -16,6 +16,6 @@ import {z} from "zod";
 export const CourseFormSchema = z.object({
     titre: z.string().min(1, "Course title is required"),
     nbrStudents: z.string().min(1, "Number of students must be at least 1"),
-    type: z.string(),
+    typeElement: z.string(),
 })
 

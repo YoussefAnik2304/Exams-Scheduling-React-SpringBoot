@@ -96,7 +96,60 @@ export async function handleFetch(url: string, method: string, body?: any): Prom
     }
 }
 
-// Ensure this matches the import in AuthContext.tsx
+// import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+//
+// export const HOST = 'http://localhost:8080/';
+//
+// export interface FetchResponse {
+//     data: any;
+//     headers: any;
+//     status: number;
+// }
+//
+// export async function handleFetch(url: string, method: string, body?: any): Promise<FetchResponse> {
+//     const baseUrl = "http://localhost:8080/"; // Change this to your base URL
+//
+//     try {
+//         const token = localStorage.getItem('token');
+//         let axiosConfig: AxiosRequestConfig = {
+//             method: method,
+//             url: baseUrl + url,
+//             headers: {
+//                 'Authorization': `Bearer ${token}`
+//             }
+//         };
+//
+//         // Ensure headers are always defined
+//         if (!axiosConfig.headers) {
+//             axiosConfig.headers = {};
+//         }
+//
+//         // Conditionally set the Content-Type header
+//         if (body instanceof FormData) {
+//             // Axios will automatically set the correct content type for FormData
+//         } else {
+//             axiosConfig.headers['Content-Type'] = 'application/json';
+//         }
+//
+//         // Include request body for non-GET requests
+//         if (method !== 'GET' && method !== 'DELETE' && body) {
+//             axiosConfig.data = body;
+//         }
+//
+//         const response: AxiosResponse = await axios(axiosConfig);
+//
+//         return {
+//             data: response.data,
+//             headers: response.headers,
+//             status: response.status
+//         };
+//     } catch (error) {
+//         // Handle exceptions here
+//         console.error('Error:', error);
+//         // Rethrow the error if you want to handle it in the calling code
+//         throw error;
+//     }
+// }
 
 
 
