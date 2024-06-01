@@ -69,7 +69,7 @@ export async function handleFetch(url: string, method: string, body?: any): Prom
     try {
         let axiosConfig: AxiosRequestConfig = {
             method: method,
-            url: baseUrl + url,
+            url: baseUrl+ url,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')

@@ -6,6 +6,7 @@ import ProfCourseViewPage from "@/Pages/ProfCourseViewPage.tsx";
 import { useProfs } from "@/context/ProfsContext.tsx";
 import { Prof } from "@/types/prof.ts";
 import { Button } from "@/components/ui/button"; // Adjust the import path as needed
+import { handleFetch } from "@/api/axios";
 
 interface LocationState {
     profId: number;
@@ -34,7 +35,10 @@ export default function ProfViewPage() {
 
         fetchProf();
     }, [getProf, location.state]);
-
+    const  getprofs=()=>{
+        const profs=handleFetch('Professors/List','GET');
+        console.log(profs);
+    }
     const handleEdit = () => {
         navigate(`/edit-prof/${prof?.Id}`, { state: { prof } });
     };
@@ -48,7 +52,9 @@ export default function ProfViewPage() {
 
     return (
         <div>
-            <h1>Professor View Page</h1>
+            <h1>Professor  Page</h1>
+            <button onClick={getprofs}>get profs </button>
+
             {prof && <ProfInfos prof={prof} />}
             {prof && (
                 <div className="flex space-x-4">

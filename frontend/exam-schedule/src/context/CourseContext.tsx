@@ -48,8 +48,7 @@ export const CoursesProvider  = ({ children } : Props) => {
 
         try {
             const res: FetchResponse = await handleFetch("Courses/add", "POST", formData);
-            const resultMessage = res.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+          
             navigate(`/Courses/${res.data.id}`);
         } catch (e) {
             const errorMessage = ErrorHandler(e);
@@ -65,8 +64,6 @@ export const CoursesProvider  = ({ children } : Props) => {
 
         await handleFetch(`Courses/update/${Course.courseId}`,"put",formData)
             .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
 
                 navigate(`/Courses/${res.data.id}`);
 
