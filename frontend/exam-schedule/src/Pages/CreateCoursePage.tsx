@@ -25,7 +25,7 @@ export default function CreateCoursePage() {
         defaultValues: {
             titre: "",
             nbrStudents: "0",
-            type: "Element",
+            typeElement: "Element",
         },
     });
 
@@ -33,7 +33,7 @@ export default function CreateCoursePage() {
         createCourse({
             titre: values.titre,
             nbrStudents: values.nbrStudents,
-            typeElement: { titre: values.type },
+            typeElement: { titre: values.typeElement },
         });
     }
 
@@ -83,12 +83,12 @@ export default function CreateCoursePage() {
                                 />
                                 <FormField
                                     control={createCourseForm.control}
-                                    name="type"
+                                    name="typeElement"
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormLabel>Type</FormLabel>
                                             <FormControl>
-                                                <Select {...field} onValueChange={field.onChange} value={field.value}>
+                                                <Select value={field.value} onValueChange={field.onChange}>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Course Type" />
                                                     </SelectTrigger>

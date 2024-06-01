@@ -4,19 +4,20 @@ import {Toaster} from "@/components/ui/toaster.tsx";
 import {Outlet} from "react-router-dom";
 import {ProfsProvider} from "@/context/ProfsContext.tsx";
 import {CoursesProvider} from "@/context/CourseContext.tsx";
+import {GroupsProvider} from "@/context/GroupContext.tsx";
 // import {AccountsProvider} from "@/context/UsersContext.tsx";
 
 function App() {
   return (
       <UserProvider>
-          {/*<AccountsProvider>*/}
+          <GroupsProvider>
                   <ProfsProvider>
                       <CoursesProvider>
                           <Outlet/>
                           <Toaster/>
                       </CoursesProvider>
                   </ProfsProvider>
-          {/*</AccountsProvider>*/}
+          </GroupsProvider>
       </UserProvider>
   );
 }

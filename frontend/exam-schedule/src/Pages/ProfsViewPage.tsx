@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProfs } from "@/context/ProfsContext.tsx";
 import { Prof } from "@/types/prof.ts";
-import { Button } from "@/components/ui/button"; // Adjust the import path as needed
+import { Button } from "@/components/ui/button";
 
 export default function ProfsViewPage() {
     const { getProfs, deleteProf } = useProfs();
@@ -27,8 +27,11 @@ export default function ProfsViewPage() {
         fetchProfs();
     }, [getProfs]);
 
+    // const handleEdit = (prof: Prof) => {
+    //     navigate(`/edit-prof/${prof.Id}`, { state: { prof } });
+    // };
     const handleEdit = (prof: Prof) => {
-        navigate(`/edit-prof/${prof.Id}`, { state: { prof } });
+        navigate(`/admin/profs/edit/${prof.Id}`, { state: { prof } });
     };
 
     const handleDelete = async (profId: number) => {
