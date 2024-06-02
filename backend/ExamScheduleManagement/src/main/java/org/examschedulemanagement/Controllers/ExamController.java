@@ -8,6 +8,7 @@ import org.examschedulemanagement.Entities.Surveillance;
 import org.examschedulemanagement.Service.Exam.ExamService;
 import org.examschedulemanagement.Service.Professor.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,11 @@ public class ExamController {
         return ResponseEntity.ok(exams);
     }
     @PostMapping("/form1")
-    public ResponseEntity<ExamResponseDto> processForm1(@RequestBody ExamForm1Dto form){
-        System.out.println(form);
-        return ResponseEntity.ok(examService.processForm1(form));
+    public ResponseEntity<?> processForm1(@RequestBody ExamForm1Dto form){
+        ExamResponseDto response =examService.processForm1(form);
+        if(response!=null)
+            return ResponseEntity.ok(response);
+        else return ResponseEntity.ok("exam already exists");
     }
     @PostMapping("/form2")
     public ResponseEntity<?> processForm2(@RequestBody ExamForm2Dto form){

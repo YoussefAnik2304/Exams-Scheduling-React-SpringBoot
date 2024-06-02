@@ -19,11 +19,5 @@ public class Salle {
     private String titre ;
     private int capacity ;
 
-    @ManyToOne
-    @JoinColumn(name = "salle_id")
-    private Surveillance surveillance;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "salle", cascade = CascadeType.ALL)
-    private List<SalleAssignment> assignments;
 }

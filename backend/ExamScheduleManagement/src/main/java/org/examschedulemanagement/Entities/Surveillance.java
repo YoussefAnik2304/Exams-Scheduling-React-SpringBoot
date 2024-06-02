@@ -25,20 +25,20 @@ public class Surveillance {
     )
     private List<Professor> surveil_profs=new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cordinated_surveil",cascade = CascadeType.ALL)
-    private List<Professor> coordinators;
+    @ManyToOne
+    @JoinColumn(name = "coordinator_id")
+    private Professor coordinator;
 
     @ManyToOne
     @JoinColumn(name = "surveill_id")
     private Admin abscenceController;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "surveillance",cascade = CascadeType.ALL)
-    private List<Salle> salles;
+    @ManyToOne
+    @JoinColumn(name = "salle_id")
+    private Salle salle;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "exam_surveill",cascade = CascadeType.ALL)
-    private List<Exam> exams;
+    @ManyToOne
+    @JoinColumn(name = "exam_id")
+    private Exam exam;
 
 }

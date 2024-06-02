@@ -21,7 +21,7 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    public Exam(Semester semestere, Session session, Course course, TypeExam typeExam, LocalDate date, LocalDateTime starting_hour, int plannedDuration,  Surveillance exam_surveill, List<SalleAssignment> assignments) {
+    public Exam(Semester semestere, Session session, Course course, TypeExam typeExam, LocalDate date, LocalDateTime starting_hour, int plannedDuration) {
         this.semestere = semestere;
         this.session = session;
         this.course = course;
@@ -29,8 +29,6 @@ public class Exam {
         this.date = date;
         this.startingHour = starting_hour;
         this.plannedDuration = plannedDuration;
-        this.exam_surveill = exam_surveill;
-        this.assignments = assignments;
     }
     private Semester semestere;
 
@@ -46,13 +44,10 @@ public class Exam {
     private LocalDateTime startingHour;
     private int plannedDuration ;
     private int actualDuration;
-
-    @ManyToOne
-    @JoinColumn(name = "surveill_id")
-    private Surveillance exam_surveill;
     @JsonIgnore
-    @OneToMany(mappedBy = "exam", cascade = CascadeType.MERGE)
-    private List<SalleAssignment> assignments;
+    @OneToMany(mappedBy = "exam",cascade = CascadeType.ALL)
+    private List<Surveillance> exam_surveill;
+
 
     private String epreuve ;
     private String Pv;
