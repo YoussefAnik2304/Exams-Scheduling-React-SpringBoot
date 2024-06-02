@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GroupService {
-    void assignProfessorToGroupByDepartement(Long groupId,Long DepartementId);
-    void assignProfessorToGroupByFiliere(Long groupId,Long filiereId);
+    Groups assignProfessorToGroupByDepartement(Long groupId,Long DepartementId);
+    Groups assignProfessorToGroupByFiliere(Long groupId,Long filiereId);
     Groups assignProfessorToGroupRandomly(Long groupId);
     List<Groups> getAllGroups();
     Groups getGroupById(Long id );

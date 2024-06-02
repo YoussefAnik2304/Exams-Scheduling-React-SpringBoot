@@ -19,7 +19,7 @@ public class SalleAssignment {
     @JoinColumn(name = "salle_id", nullable = false)
     private Salle salle;
 
-    @OneToMany(mappedBy = "assignment",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "assignments",cascade = CascadeType.ALL)
     private List<Professor> professors;
 
     @ManyToOne

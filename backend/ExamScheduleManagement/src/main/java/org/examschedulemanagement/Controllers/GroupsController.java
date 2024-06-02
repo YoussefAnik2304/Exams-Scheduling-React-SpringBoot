@@ -1,5 +1,7 @@
 package org.examschedulemanagement.Controllers;
 
+import org.examschedulemanagement.Dao.DepartementDao;
+import org.examschedulemanagement.Dao.FiliereDao;
 import org.examschedulemanagement.Entities.Groups;
 import org.examschedulemanagement.Entities.Professor;
 import org.examschedulemanagement.Service.Groups.GroupService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,10 @@ public class GroupsController {
     private GroupService groupsService;
     @Autowired
     private ProfessorService professorService;
+    @Autowired
+    private FiliereDao filiereDao;
+    @Autowired
+    private DepartementDao departementDao;
     @GetMapping("/List")
     public ResponseEntity<List<Groups>> getAllGroups(){
         List<Groups> allGroups=groupsService.getAllGroups();
@@ -65,8 +72,12 @@ public class GroupsController {
             return ResponseEntity.ok(removedGroup);
         else return ResponseEntity.notFound().build();
     }
-    @PostMapping("{group_id}/addMembers")
-    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id){
-        return ResponseEntity.ok().body(groupsService.assignProfessorToGroupRandomly(group_id));
+    @PostMapping("{group_id}/addMembers/{choice}/{filDep_id}")
+    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id, @PathVariable String choice, @PathVariable Long filDep_id){
+        if(choice.equals("FILIERE"))
+            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByFiliere(group_id,filDep_id));
+        else if(choice.equals("DEPARTEMENT"))
+            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByDepartement(group_id,filDep_id));
+        else return ResponseEntity.ok().body(groupsService.assignProfessorToGroupRandomly(group_id));
     }
 }

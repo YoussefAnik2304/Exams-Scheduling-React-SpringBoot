@@ -54,7 +54,7 @@ public class ProfessorController {
     public ResponseEntity<Professor>assignFiliereDepartement (@PathVariable Long id ,@PathVariable Long filiere_id,@PathVariable Long departement_id){
         professorService.assignFiliereToProfessor(id,filiere_id);
         professorService.assignDepartementToProfessor(id,departement_id);
-        return ResponseEntity.created(URI.create("/home")).body(professorService.getProfessorById(id));
+        return ResponseEntity.ok().body(professorService.getProfessorById(id));
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<Professor> updateResource(@PathVariable Long id, @RequestBody Professor updatedProfessor) {

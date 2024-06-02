@@ -32,21 +32,14 @@ public class Exam {
         this.exam_surveill = exam_surveill;
         this.assignments = assignments;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "semester_id")
     private Semester semestere;
 
-    @ManyToOne
-    @JoinColumn(name = "session_id")
     private Session session;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "typeExam_id")
     private TypeExam typeExam;
 
     private LocalDate date;
@@ -58,7 +51,7 @@ public class Exam {
     @JoinColumn(name = "surveill_id")
     private Surveillance exam_surveill;
     @JsonIgnore
-    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.MERGE)
     private List<SalleAssignment> assignments;
 
     private String epreuve ;

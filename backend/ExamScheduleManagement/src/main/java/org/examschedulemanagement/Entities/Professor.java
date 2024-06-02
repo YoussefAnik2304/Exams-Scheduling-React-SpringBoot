@@ -39,9 +39,14 @@ public class Professor extends Personnel{
     private List<Surveillance> surveid_surveil=new ArrayList<>();
 
 
-    @ManyToOne
-    @JoinColumn(name = "assignment")
-    private SalleAssignment assignment;
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "professor_salle_assignment",
+            joinColumns = @JoinColumn(name = "professor_id"),
+            inverseJoinColumns = @JoinColumn(name = "salle_assignment_id")
+    )
+    private List<SalleAssignment> assignments;
 
     @ManyToOne
     @JoinColumn(name = "survaillance_id")

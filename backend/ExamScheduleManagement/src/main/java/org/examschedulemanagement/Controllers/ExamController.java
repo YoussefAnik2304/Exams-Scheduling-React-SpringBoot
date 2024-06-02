@@ -25,6 +25,7 @@ public class ExamController {
     }
     @PostMapping("/form1")
     public ResponseEntity<ExamResponseDto> processForm1(@RequestBody ExamForm1Dto form){
+        System.out.println(form);
         return ResponseEntity.ok(examService.processForm1(form));
     }
     @PostMapping("/form2")

@@ -29,43 +29,26 @@ public class GroupServiceImpl implements GroupService{
     private DepartementDao departementDao;
     @Autowired
     private FiliereDao filiereDao;
-    @Override
-    public void assignProfessorToGroupByDepartement(Long groupId, Long DepartementId) {
-        Groups group=groupsDao.findById(groupId).orElseThrow(()-> new EntityNotFoundException("group not found"));
-        Departement dept=departementDao.getReferenceById(DepartementId);
-        List<Professor> departemet_professors=dept.getDepartement_profs();
-        group.setMembers(departemet_professors);
-        groupsDao.save(group);
-    }
-
-    @Override
-    public void assignProfessorToGroupByFiliere(Long groupId, Long filiereId) {
-        Groups group=groupsDao.findById(groupId).orElseThrow(()-> new EntityNotFoundException("group not found"));
-        Filiere filiere=filiereDao.getReferenceById(filiereId);
-        List<Professor> filiere_professors=filiere.getFilier_profs();
-        group.setMembers(filiere_professors);
-        groupsDao.save(group);
-    }
-
-    @Override
-    public Groups assignProfessorToGroupRandomly(Long groupId) {
-        // Find the group by ID or throw an exception if not found
+    public Groups assignProfessorToGroupByDepartement(Long groupId, Long departementId) {
         Groups group = groupsDao.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found"));
-
-        // Retrieve all professors
-        List<Professor> professors = professorDao.findAll();
-
-        // Shuffle the list to assign professors randomly
-        Collections.shuffle(professors);
-
-        // Assign the shuffled professors to the group
-        group.setMembers(professors);
-
-        // Save the group with the new members
-
-        // Return the assigned members
+        List<Professor> availableProfessors = professorDao.findAvailableProfessorsByDepartement(departementId);
+        group.setMembers(availableProfessors);
         return groupsDao.save(group);
+    }
 
+    public Groups assignProfessorToGroupByFiliere(Long groupId, Long filiereId) {
+        Groups group = groupsDao.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found"));
+        List<Professor> availableProfessors = professorDao.findAvailableProfessorsByFiliere(filiereId);
+        group.setMembers(availableProfessors);
+        return groupsDao.save(group);
+    }
+
+    public Groups assignProfessorToGroupRandomly(Long groupId) {
+        Groups group = groupsDao.findById(groupId).orElseThrow(() -> new EntityNotFoundException("Group not found"));
+        List<Professor> availableProfessors = professorDao.findProfessorsWithoutGroup();
+        Collections.shuffle(availableProfessors);
+        group.setMembers(availableProfessors);
+        return groupsDao.save(group);
     }
 
 

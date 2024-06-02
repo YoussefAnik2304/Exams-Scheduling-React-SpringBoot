@@ -22,7 +22,20 @@ public class Groups {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "group" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "group" ,cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Professor> members=new ArrayList<>();
+    public void setMembers(List<Professor> professors) {
+        for (Professor professor : professors) {
+            professor.setGroup(this);
+        }
+        this.members = professors;
+    }
+    @PreRemove
+    private void preRemove() {
+        for (Professor professor : members) {
+            professor.setGroup(null);
+        }
+        members.clear();
+    }
 
 }

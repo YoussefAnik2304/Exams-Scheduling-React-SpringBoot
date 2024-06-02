@@ -7,15 +7,7 @@ import lombok.Setter;
 
 import java.util.List;
 import java.util.List;
-@Entity
 @Getter
-@Setter
-public class TypeExam {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String titre;
-    @JsonIgnore
-    @OneToMany(mappedBy = "typeExam",cascade = CascadeType.ALL)
-    private List<Exam> examSet;
+public enum TypeExam {
+   EXAM,DS
 }

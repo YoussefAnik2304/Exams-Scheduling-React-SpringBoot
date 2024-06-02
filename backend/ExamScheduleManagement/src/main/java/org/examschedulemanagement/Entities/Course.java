@@ -1,5 +1,7 @@
 package org.examschedulemanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
@@ -18,7 +20,9 @@ public class Course {
 
     private String titre;
     private int nbrStudents ;
-
+    private Grade grade;
+    private TypeElement typeElement;
+    @JsonIgnore
     @OneToMany(mappedBy = "course",cascade = CascadeType.ALL)
     private List<Exam> examList;
     @ManyToOne
@@ -29,11 +33,6 @@ public class Course {
     @JoinColumn(name = "supervisor_id")
     private Professor supervisor;
 
-    @ManyToOne
-    @JoinColumn(name = "grade_id")
-    private Grade grade;
 
-    @ManyToOne
-    @JoinColumn(name = "element_type_id")
-    private TypeElement typeElement;
+
 }
