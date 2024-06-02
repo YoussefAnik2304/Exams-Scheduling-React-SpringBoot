@@ -15,8 +15,10 @@
 export interface Course {
     courseId?: number,
     titre: string,
-    typeElement: TypeElement,
-    nbrStudents: string
+    typeElement: string,
+    nbrStudents: string,
+    grade: string,
+    professor: string
 }
 
 export interface TypeElement {

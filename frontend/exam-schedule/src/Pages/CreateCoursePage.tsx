@@ -15,27 +15,42 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { useProfs } from "@/context/ProfsContext";
+import { useEffect,useState } from "react";
+import { Prof } from "@/types/prof";
 
 export default function CreateCoursePage() {
     const { createCourse } = useCourse();
+    const {getProfs}=useProfs();
+    const [professors, setProfessors] = useState<Prof[]>([]);
 
     const createCourseForm = useForm<z.infer<typeof CourseFormSchema>>({
         resolver: zodResolver(CourseFormSchema),
         defaultValues: {
             titre: "",
             nbrStudents: "0",
-            typeElement: "Element",
+            typeElement: "ELEMENT",
+            grade: "FIRST",
+            professor: "",
         },
     });
 
     function onSubmit(values: z.infer<typeof CourseFormSchema>) {
         createCourse({
             titre: values.titre,
-            nbrStudents: values.nbrStudents,
-            typeElement: { titre: values.typeElement },
+            nbrStudents: values.nbrStudents.toString(),
+            typeElement: values.typeElement ,
+            grade :values.grade,
+            professor: JSON.stringify(professors.filter((prof) => prof.id?.toString() === values.professor)[0])
         });
     }
-
+    useEffect(() => {
+        const getProfessors = async () => {
+            const professorData = await getProfs();
+            setProfessors(professorData);
+        };
+        getProfessors();
+    }, []);
     return (
         <Card className="bg-card border-0 shadow-none p-2 md:p-4 lg:p-10">
             <CardHeader className="p-3 md:p-6 mb-4">
@@ -93,8 +108,64 @@ export default function CreateCoursePage() {
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         <SelectGroup>
-                                                            <SelectItem value="element">Element</SelectItem>
-                                                            <SelectItem value="module">Module</SelectItem>
+                                                            <SelectItem value="ELEMENT">ELEMENT</SelectItem>
+                                                            <SelectItem value="MODULE">MODULE</SelectItem>
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                 <FormField
+                                    control={createCourseForm.control}
+                                    name="grade"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>grade</FormLabel>
+                                            <FormControl>
+                                                <Select value={field.value} onValueChange={field.onChange}>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Course Type" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            <SelectItem value="FIRST">FIRST</SelectItem>
+                                                            <SelectItem value="SECONDE">SECONDE</SelectItem>
+                                                            <SelectItem value="THIRD">THIRD</SelectItem>
+                                                            <SelectItem value="FOURTH">FOURTH</SelectItem>
+                                                            <SelectItem value="FIFTH">FIFTH</SelectItem>
+                                                            
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={createCourseForm.control}
+                                    name="professor"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Professor</FormLabel>
+                                            <FormControl>
+                                                <Select value={field.value} onValueChange={field.onChange}>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Select Professor" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            {professors.map((professor) => (
+                                                                <SelectItem
+                                                                    key={professor.id}
+                                                                    value={professor.id ? professor.id.toString() : ''}
+                                                                >
+                                                                    {professor.firstName+' '+professor.lastName}
+                                                                </SelectItem>
+                                                            ))}
                                                         </SelectGroup>
                                                     </SelectContent>
                                                 </Select>

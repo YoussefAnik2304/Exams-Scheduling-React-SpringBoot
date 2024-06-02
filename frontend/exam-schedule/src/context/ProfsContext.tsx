@@ -54,7 +54,7 @@ export const ProfsProvider = ({ children }: Props) => {
             showToast("Something went wrong!", errorMessage);
         }
     }
-    const updateProf = async (prof: Prof, profId: number) => {
+   const updateProf = async (prof: Prof, profId: number) => {
         const formData = new FormData();
         formData.append("firstName", prof.firstName);
         formData.append("lastName", prof.lastName);
@@ -91,8 +91,7 @@ export const ProfsProvider = ({ children }: Props) => {
     const getProf = async (profId: number): Promise<Prof> => {
         try {
             const response = await handleFetch(`Professors/${profId}`, "GET");
-            const resultMessage = response.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+            
             return response.data || {};
         } catch (error) {
             const errorMessage = ErrorHandler(error);
@@ -104,8 +103,6 @@ export const ProfsProvider = ({ children }: Props) => {
     const getProfs = async (): Promise<Prof[]> => {
         try {
             const response = await handleFetch(`Professors/List`, "GET");
-            const resultMessage = response.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
             return response.data;
         } catch (error) {
             const errorMessage = ErrorHandler(error);

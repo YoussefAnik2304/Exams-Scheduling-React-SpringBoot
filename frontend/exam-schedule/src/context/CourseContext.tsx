@@ -44,11 +44,11 @@ export const CoursesProvider  = ({ children } : Props) => {
         const formData = new FormData();
         formData.append("courseTitle", course.titre);
         formData.append("nbrStudents", course.nbrStudents.toString());
-        formData.append("typeElement", JSON.stringify(course.typeElement));
-
+        formData.append("typeElement", course.typeElement);
+        formData.append("grade", course.grade);
+        formData.append("professor", course.professor);
         try {
-            const res: FetchResponse = await handleFetch("Courses/add", "POST", formData);
-          
+            const res = await handleFetch("Courses/add", "POST", formData);
             navigate(`/Courses/${res.data.id}`);
         } catch (e) {
             const errorMessage = ErrorHandler(e);
@@ -57,12 +57,12 @@ export const CoursesProvider  = ({ children } : Props) => {
     };
 
     const updateCourse = async (Course: Course) => {
-        const formData = new FormData();
+       /* const formData = new FormData();
         formData.append("courseTitle", Course.titre);
-        formData.append("nbrStudents", Course.nbrStudents);
-        formData.append("typeElement", Course.typeElement.titre);
-
-        await handleFetch(`Courses/update/${Course.courseId}`,"put",formData)
+        formData.append("nbrStudents", Course.nbrStudents.toString);
+        formData.append("typeElement", Course.typeElement);
+*/
+        await handleFetch(`Courses/update/${Course.courseId}`,"put",Course)
             .then((res) => {
 
                 navigate(`/Courses/${res.data.id}`);
