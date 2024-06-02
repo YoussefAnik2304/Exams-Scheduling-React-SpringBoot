@@ -42,18 +42,14 @@ export default function CreateProfForm() {
     });
 
     function onSubmit(values: z.infer<typeof createProfFormSchema>) {
-        const { email, firstName, lastName, password, group, departement, filiere, enabled, accountNonExpired, credentialsNonExpired } = values;
+        const { email, firstName, lastName, password,  filiere,departement} = values;
         const submittedProf: Prof = {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            group: group,
-            departement: departement,
-            filiere: filiere,
             password: password,
-            enabled: enabled,
-            accountNonExpired: accountNonExpired,
-            credentialsNonExpired: credentialsNonExpired,
+            filiere:filiere,
+            departement :departement
         }
         createProf(submittedProf);
     }
@@ -154,10 +150,9 @@ export default function CreateProfForm() {
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         <SelectGroup>
-                                                            <SelectItem value="GI">GI</SelectItem>
-                                                            <SelectItem value="ID">ID</SelectItem>
-                                                            <SelectItem value="GC">GC</SelectItem>
-                                                            <SelectItem value="GEE">GEE</SelectItem>
+                                                            <SelectItem value="Genie Informatique">Genie Informatique</SelectItem>
+                                                            <SelectItem value="Genie Civil">Genie Civil</SelectItem>
+                                                            <SelectItem value="Genie Mecanique">Genie Mecanique</SelectItem>
                                                         </SelectGroup>
                                                     </SelectContent>
                                                 </Select>
@@ -179,9 +174,9 @@ export default function CreateProfForm() {
                                                     </SelectTrigger>
                                                     <SelectContent>
                                                         <SelectGroup>
-                                                            <SelectItem value="Dept1">Dept1</SelectItem>
-                                                            <SelectItem value="Dept2">Dept2</SelectItem>
-                                                            <SelectItem value="Dept3">Dept3</SelectItem>
+                                                            <SelectItem value="Dept1">Informatique</SelectItem>
+                                                            <SelectItem value="Dept2">Civil</SelectItem>
+                                                            <SelectItem value="Dept3">Mecanique</SelectItem>
                                                         </SelectGroup>
                                                     </SelectContent>
                                                 </Select>
@@ -190,78 +185,8 @@ export default function CreateProfForm() {
                                         </FormItem>
                                     )}
                                 />
-                                <FormField
-                                    control={createProfForm.control}
-                                    name="group"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Group</FormLabel>
-                                            <FormControl>
-                                                <Select value={field.value} onValueChange={field.onChange}>
-                                                    <SelectTrigger className="w-full">
-                                                        <SelectValue placeholder="Select Group" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectGroup>
-                                                            <SelectItem value="Group1">Group1</SelectItem>
-                                                            <SelectItem value="Group2">Group2</SelectItem>
-                                                            <SelectItem value="Group3">Group3</SelectItem>
-                                                        </SelectGroup>
-                                                    </SelectContent>
-                                                </Select>
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={createProfForm.control}
-                                    name="enabled"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Enabled</FormLabel>
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={createProfForm.control}
-                                    name="accountNonExpired"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Account Non Expired</FormLabel>
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                                <FormField
-                                    control={createProfForm.control}
-                                    name="credentialsNonExpired"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Credentials Non Expired</FormLabel>
-                                            <FormControl>
-                                                <Checkbox
-                                                    checked={field.value}
-                                                    onCheckedChange={(checked) => field.onChange(checked)}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
+                                
+                               
                             </div>
                         </div>
                         <Separator />

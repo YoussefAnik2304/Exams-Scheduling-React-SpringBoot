@@ -24,12 +24,11 @@ public class ProfessorServiceImpl implements ProfessorService{
     private DepartementDao departementDao;
 
     @Override
-    public void assignDepartementToProfessor(Long professorId, Long departementId) {
+    public void assignDepartementToProfessor(Long professorId, String departement_name) {
         Professor professor = professorDao.findById(professorId)
                 .orElseThrow(() -> new EntityNotFoundException("Professor not found with id: " + professorId));
 
-        Departement departement = departementDao.findById(departementId)
-                .orElseThrow(() -> new EntityNotFoundException("departement not found with id: " + departementId));
+        Departement departement = departementDao.getDepartementByNom(departement_name);
 
         professor.setDepartement(departement); // Assign filiere to professor
 
@@ -37,12 +36,11 @@ public class ProfessorServiceImpl implements ProfessorService{
     }
 
     @Override
-    public void assignFiliereToProfessor(Long professorId, Long filiereId) {
+    public void assignFiliereToProfessor(Long professorId, String filiere_name) {
         Professor professor = professorDao.findById(professorId)
                 .orElseThrow(() -> new EntityNotFoundException("Professor not found with id: " + professorId));
 
-        Filiere filiere = filiereDao.findById(filiereId)
-                .orElseThrow(() -> new EntityNotFoundException("Filiere not found with id: " + filiereId));
+        Filiere filiere = filiereDao.getFiliereByName(filiere_name);
 
         professor.setFiliere(filiere); // Assign filiere to professor
 

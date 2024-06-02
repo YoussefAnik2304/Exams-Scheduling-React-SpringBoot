@@ -50,10 +50,10 @@ public class ProfessorController {
         }
         return ResponseEntity.ok().body(professorService.addProfessor(Professor));
     }
-    @PostMapping("{id}/filiere/{filiere_id}/departement/{departement_id}")
-    public ResponseEntity<Professor>assignFiliereDepartement (@PathVariable Long id ,@PathVariable Long filiere_id,@PathVariable Long departement_id){
-        professorService.assignFiliereToProfessor(id,filiere_id);
-        professorService.assignDepartementToProfessor(id,departement_id);
+    @PostMapping("{id}/filiere/{filiere}/departement/{departement}")
+    public ResponseEntity<Professor>assignFiliereDepartement (@PathVariable Long id ,@PathVariable String filiere,@PathVariable String departement){
+        professorService.assignFiliereToProfessor(id,filiere);
+        professorService.assignDepartementToProfessor(id,departement);
         return ResponseEntity.ok().body(professorService.getProfessorById(id));
     }
     @PutMapping("/update/{id}")

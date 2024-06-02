@@ -25,17 +25,8 @@ export interface Prof {
     lastName: string;
     email: string;
     password: string;
-    group: string;
     filiere: string;
     departement: string;
-    cordinated_surveil?: null,
-    enabled: boolean|string,
-    accountNonExpired: boolean |string,
-    credentialsNonExpired: boolean |string,
-    authorities?: Authority[]| null,
-    accountNonLocked?: boolean;
-    coursesTeaching?: Course[],
-    coursesSupervising?: Course[],
 }
   
  export  interface Group {

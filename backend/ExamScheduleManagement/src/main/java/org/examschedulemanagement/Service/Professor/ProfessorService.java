@@ -5,8 +5,8 @@ import org.examschedulemanagement.Entities.Professor;
 import java.util.List;;;
 
 public interface ProfessorService {
-    void assignDepartementToProfessor(Long professorId, Long departementId);
-    void assignFiliereToProfessor(Long professorId, Long filiereId);
+    void assignDepartementToProfessor(Long professorId, String departementName);
+    void assignFiliereToProfessor(Long professorId, String filiereName);
     List<Professor> getProfessors();
     Professor getProfessorById(Long id );
     Professor getProfessorByEmail(String email);

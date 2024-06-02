@@ -30,7 +30,8 @@ public class ExamServiceImpl implements ExamService {
 
     @Autowired
     private SalleDao salleDao;
-
+    @Autowired
+    private AdminDao adminDao;
     @Autowired
     private SurveillanceDao surveillanceDao;
 
@@ -69,7 +70,8 @@ public class ExamServiceImpl implements ExamService {
         } else {
             groupedProfessors = groupProfessorsByGroup(availableProfs, form.getNbrOfSurv(), salles.size());
         }
-        Admin available_Admin=getAvailableAdmin();
+        Admin available_Admin=adminDao.findByNotInAbcenceController().get(0);
+        Course course = courseDao.getCourseByTitre(form.getResponseDto().getExamForm1Dto().getCourse());
 
         // Create surveillance objects with assigned salles and professors
         List<Surveillance> surveillances = new ArrayList<>();
@@ -77,13 +79,14 @@ public class ExamServiceImpl implements ExamService {
             Surveillance surveillance = new Surveillance();
             surveillance.setSalle(salles.get(i));
             surveillance.setSurveil_profs(groupedProfessors.get(i));
+            surveillance.setAbscenceController(available_Admin);
+            surveillance.setCoordinator(course.getSupervisor());
             surveillances.add(surveillance);
         }
 
         // Create exam object with assigned surveillances
         Semester semester = Semester.valueOf(form.getResponseDto().getExamForm1Dto().getSemestere());
         Session session = Session.valueOf(form.getResponseDto().getExamForm1Dto().getSession());
-        Course course = courseDao.getCourseByTitre(form.getResponseDto().getExamForm1Dto().getCourse());
         TypeExam typeExam = TypeExam.valueOf(form.getResponseDto().getExamForm1Dto().getTypeExam());
         LocalDate date = form.getResponseDto().getExamForm1Dto().getDate();
         LocalDateTime startingTime = form.getResponseDto().getExamForm1Dto().getStarting_hour();
@@ -92,6 +95,11 @@ public class ExamServiceImpl implements ExamService {
         newExam.setExam_surveill(surveillances);
         newExam = examDao.save(newExam);
         return newExam;
+    }
+
+    @Override
+    public Exam processForm3(Exam exam) {
+        return null;
     }
 
     private List<Salle> getAvailableSalles(List<Exam> exams, int nbrStudents) {
