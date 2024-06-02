@@ -24,59 +24,59 @@ export const ProfsProvider = ({ children }: Props) => {
 
     const createProf = async (prof: Prof) => {
         const formData = new FormData();
-        formData.append("FirstName", prof.FirstName);
-        formData.append("LastName", prof.LastName);
+        formData.append("firstName", prof.firstName);
+        formData.append("lastName", prof.lastName);
         formData.append("password", prof.password);
         formData.append("email", prof.email);
         formData.append("group", prof.group);
         formData.append("filiere", prof.filiere);
         formData.append("departement", prof.departement);
+        formData.append("enabled", prof.enabled.toString());
+        formData.append("accountNonExpired", prof.accountNonExpired.toString());
+        formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
 
-        await handleFetch("Professors/add", "POST", formData)
-            .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
-                navigate(`/Professors/${res.data.id}`);
-            })
-            .catch((e) => {
-                const errorMessage = ErrorHandler(e);
-                showToast("Something went wrong!", errorMessage);
-            });
+        try {
+            const res = await handleFetch("Professors/add", "POST", formData);
+            showToast("Success", "Created Successufuly");
+            navigate(`/Professors/${res.data.id}`);
+        } catch (e) {
+            const errorMessage = ErrorHandler(e);
+            showToast("Something went wrong!", errorMessage);
+        }
     };
 
     const updateProf = async (prof: Prof, profId: number) => {
         const formData = new FormData();
-        formData.append("FirstName", prof.FirstName);
-        formData.append("LastName", prof.LastName);
+        formData.append("firstName", prof.firstName);
+        formData.append("lastName", prof.lastName);
         formData.append("password", prof.password);
         formData.append("email", prof.email);
         formData.append("group", prof.group);
         formData.append("filiere", prof.filiere);
         formData.append("departement", prof.departement);
+        formData.append("enabled", prof.enabled.toString());
+        formData.append("accountNonExpired", prof.accountNonExpired.toString());
+        formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
 
-        await handleFetch(`Professors/update/${profId}`, "PUT", formData)
-            .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
-                navigate(`/Professors/${res.data.id}`);
-            })
-            .catch((e) => {
-                const errorMessage = ErrorHandler(e);
-                showToast("Something went wrong!", errorMessage);
-            });
+        try {
+            const res = await handleFetch(`Professors/update/${profId}`, "PUT", formData);
+            showToast("Success", "Updated Successufuly");
+            navigate(`/Professors/${res.data.id}`);
+        } catch (e) {
+            const errorMessage = ErrorHandler(e);
+            showToast("Something went wrong!", errorMessage);
+        }
     };
 
     const deleteProf = async (profId: number) => {
-        await handleFetch(`Professors/delete/${profId}`, "DELETE")
-            .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
-                navigate("/Professors");
-            })
-            .catch((e) => {
-                const errorMessage = ErrorHandler(e);
-                showToast("Something went wrong!", errorMessage);
-            });
+        try {
+            await handleFetch(`Professors/delete/${profId}`, "DELETE");
+            showToast("Success", "Deleted Successufuly");
+            navigate("/Professors");
+        } catch (e) {
+            const errorMessage = ErrorHandler(e);
+            showToast("Something went wrong!", errorMessage);
+        }
     };
 
     const getProf = async (profId: number): Promise<Prof> => {

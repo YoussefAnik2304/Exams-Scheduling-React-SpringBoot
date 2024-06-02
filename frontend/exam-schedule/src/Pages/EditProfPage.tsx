@@ -13,17 +13,19 @@ export default function EditProfPage() {
     const { updateProf, getProf } = useProfs();
     const [prof, setProf] = useState<Prof | null>(null);
     const [formValues, setFormValues] = useState<Prof>({
-        FirstName: '',
-        LastName: '',
+        firstName: '',
+        lastName: '',
         password: '',
         email: '',
         group: '',
         filiere: '',
         departement: '',
-        published: null,
         coursesTeaching: [],
-        coursesSupervising: []
+        enabled: false,
+        accountNonExpired: false,
+        credentialsNonExpired: false,
     });
+
     const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
     useEffect(() => {
@@ -47,10 +49,10 @@ export default function EditProfPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (prof && prof.Id) {
-            await updateProf(formValues, prof.Id);
+        if (prof && prof.id) {
+            await updateProf(formValues, prof.id);
             setIsPopoverOpen(false);
-            navigate("/profs");
+            navigate("/admin/profs");
         }
     };
 
@@ -68,7 +70,7 @@ export default function EditProfPage() {
                                 <Input
                                     type="text"
                                     name="FirstName"
-                                    value={formValues.FirstName}
+                                    value={formValues.firstName}
                                     onChange={handleInputChange}
                                     required
                                 />
@@ -78,7 +80,7 @@ export default function EditProfPage() {
                                 <Input
                                     type="text"
                                     name="LastName"
-                                    value={formValues.LastName}
+                                    value={formValues.lastName}
                                     onChange={handleInputChange}
                                     required
                                 />

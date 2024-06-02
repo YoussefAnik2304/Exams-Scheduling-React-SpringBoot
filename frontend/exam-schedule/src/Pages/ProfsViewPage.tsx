@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useProfs } from "@/context/ProfsContext";
 import { Prof } from "@/types/prof";
 import { Button } from "@/components/ui/button";
 import { handleFetch } from "@/api/axios";
 
 export default function ProfsViewPage() {
-  const { getProfs, deleteProf } = useProfs();
+  // const { getProfs, deleteProf } = useProfs();
   const [profs, setProfs] = useState<Prof[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
@@ -33,7 +32,7 @@ export default function ProfsViewPage() {
     navigate(`/admin/profs/edit/${prof.id}`, { state: { prof } });
   };
 
-  const handleDelete = async (profId: number) => {
+  const handleDelete = async (profId: number | undefined) => {
     try {
       await handleFetch(`Professors/remove/${profId}`, "DELETE");
       setProfs(profs.filter((prof) => prof.id !== profId));
@@ -44,9 +43,20 @@ export default function ProfsViewPage() {
   };
 
   return (
-    <div>
-      <h1>Professors View Page</h1>
-      <Button onClick={fetchProfs}>Fetch Professors</Button>
+      <div className="flex flex-col justify-center sm:gap-4 sm:pl-14 bg-background">
+        <div className="px-4 md:px-20 py-10">
+
+      <h1 className="text-2xl font-bold">Professors View Page</h1>
+      <Button className="mt-4" variant = {"outline"} onClick={fetchProfs}>Fetch Professors</Button>
+          <Link to="/admin/profs/create" className="px-4 md:px-6">
+            <Button className="space-x-2  w-full md:w-fit">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                   stroke="currentColor" className="size-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+              </svg>
+              <span>Add Prof</span>
+            </Button>
+          </Link>
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
@@ -71,7 +81,7 @@ export default function ProfsViewPage() {
                   Delete
                 </Button>
               </div>
-              <Button asChild className="mb-4 w-full bg-primary text-white hover:bg-blue-800">
+              <Button asChild className="border border-input bg-background hover:bg-accent hover:text-accent-foreground">
                 <Link to={`/prof/${prof.id}`} className="text-blue-500 underline mt-4 block">
                   View Details
                 </Link>
@@ -81,5 +91,6 @@ export default function ProfsViewPage() {
         </div>
       )}
     </div>
+      </div>
   );
 }
