@@ -20,6 +20,16 @@ import GroupsViewPage from "@/Pages/GroupsViewPage.tsx";
 import CreateGroupPage from "@/Pages/CreateGroupPage.tsx";
 import EditGroupPage from "@/Pages/EditGroupPage.tsx";
 import GroupViewPage from "@/Pages/GroupViewPage.tsx";
+import DashboardPage from "@/Pages/Dashboard.tsx";
+import ExamCreationPage from "@/Pages/ExamCreationPage.tsx";
+import ExamDetailsForm from "@/Pages/ExamDetailsForm.tsx";
+import ExamMultiStepForm from "@/Pages/ExamDetailsForm.tsx";
+import ExamPlanningForm from "@/Pages/ExamDetailsForm.tsx";
+import ExamConfirmationForm from "@/Pages/ExamDetailsForm.tsx";
+import { handleNext } from "@/Pages/ExamDetailsForm.tsx";
+
+
+
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +52,7 @@ export const router = createBrowserRouter([
                 path: "admin",
                 element: <DefaultLayoutAdmin />,
                 children: [
+                    { path: "dashboard", element: <DashboardPage /> },
                     { path: "profs", element: <ProfsViewPage /> },
                     { path: "profs/create", element: <CreateProfPage /> },
                     { path: "profs/edit/:id", element: <EditProfPage /> },
@@ -52,6 +63,11 @@ export const router = createBrowserRouter([
                     { path: "Groups/create", element: <CreateGroupPage /> },
                     { path: "Groups/edit/:groupId", element: <EditGroupPage /> },
                     { path: "Groups/:groupId", element: <GroupViewPage /> },
+                    { path: "exams/create", element: <ExamCreationPage /> },
+                    { path: "exams/details", element: <ExamDetailsForm onNext={handleNext}/> },
+                    { path: "exams/multi-step", element: <ExamMultiStepForm onNext={handleNext}/> },
+                    { path: "exams/planning", element: <ExamPlanningForm onNext={handleNext} /> },
+                    { path: "exams/confirmation", element: <ExamConfirmationForm onNext={handleNext} /> },
                 ],
             },
             {
@@ -66,3 +82,5 @@ export const router = createBrowserRouter([
         ],
     },
 ]);
+
+export default router;

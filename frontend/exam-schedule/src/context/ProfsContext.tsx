@@ -31,9 +31,6 @@ export const ProfsProvider = ({ children }: Props) => {
         formData.append("group", prof.group);
         formData.append("filiere", prof.filiere);
         formData.append("departement", prof.departement);
-        if (prof.profImage) {
-            formData.append("profImage", prof.profImage);
-        }
 
         await handleFetch("Professors/add", "POST", formData)
             .then((res) => {
@@ -56,9 +53,6 @@ export const ProfsProvider = ({ children }: Props) => {
         formData.append("group", prof.group);
         formData.append("filiere", prof.filiere);
         formData.append("departement", prof.departement);
-        if (prof.profImage) {
-            formData.append("profImage", prof.profImage);
-        }
 
         await handleFetch(`Professors/update/${profId}`, "PUT", formData)
             .then((res) => {
