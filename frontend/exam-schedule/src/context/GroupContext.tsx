@@ -26,8 +26,7 @@ export const GroupsProvider: React.FC<Props> = ({ children }: Props) => {
     const createGroup = async (group: Group) => {
         try {
             const res: FetchResponse = await handleFetch("Groups/add", "POST", group);
-            const resultMessage = res.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+            showToast("Success", "Successufuly Created");
             navigate(`/Groups/${res.data.id}`);
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
@@ -39,8 +38,7 @@ export const GroupsProvider: React.FC<Props> = ({ children }: Props) => {
     const updateGroup = async (group: Group, groupId: number) => {
         try {
             const res: FetchResponse = await handleFetch(`Groups/update/${groupId}`, "PUT", group);
-            const resultMessage = res.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+            showToast("Success", "Successufuly updated");
             navigate(`/Groups/${res.data.id}`);
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
@@ -51,9 +49,8 @@ export const GroupsProvider: React.FC<Props> = ({ children }: Props) => {
 
     const deleteGroup = async (groupId: number) => {
         try {
-            const res: FetchResponse = await handleFetch(`Groups/remove/${groupId}`, "DELETE");
-            const resultMessage = res.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+            await handleFetch(`Groups/remove/${groupId}`, "DELETE");
+            showToast("Success", "Successufuly deleted");
             navigate("/Groups");
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);

@@ -1,35 +1,33 @@
-import { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProfs } from "@/context/ProfsContext.tsx";
 import { Prof } from "@/types/prof.ts";
 import { Button } from "@/components/ui/button";
 import { handleFetch } from "@/api/axios";
+
 export default function ProfsViewPage() {
     const { getProfs, deleteProf } = useProfs();
     const [profs, setProfs] = useState<Prof[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
-/*
-    useEffect(() => {
-        const fetchProfs = async () => {
-            try {
-                const profsData = await getProfs();
-                setProfs(profsData);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching professors:", error instanceof Error ? error.message : error);
-                setError("Error fetching professors");
-                setLoading(false);
-            }
-        };
 
+    useEffect(() => {
         fetchProfs();
-    }, [getProfs]);
-*/
-    // const handleEdit = (prof: Prof) => {
-    //     navigate(`/edit-prof/${prof.Id}`, { state: { prof } });
-    // };
+    }, []);
+
+    const fetchProfs = async () => {
+        try {
+            const profsData = await getProfs();
+            setProfs(profsData);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching professors:", error instanceof Error ? error.message : error);
+            setError("Error fetching professors");
+            setLoading(false);
+        }
+    };
+
     const handleEdit = (prof: Prof) => {
         navigate(`/admin/profs/edit/${prof.Id}`, { state: { prof } });
     };
@@ -43,16 +41,16 @@ export default function ProfsViewPage() {
             setError("Error deleting professor");
         }
     };
-    const  getprofs=async ()=>{
+
+    const getProfsFromAPI = async () => {
         const response = await handleFetch('Groups/2', 'GET');
         console.log(response.data);
-        console.log(localStorage.getItem('token'));
-    }
+    };
 
     return (
         <div>
             <h1>Professors View Page</h1>
-            <button onClick={getprofs}>get profs </button>
+            <Button onClick={getProfsFromAPI}>Fetch Professors</Button>
 
             {loading && <p>Loading...</p>}
             {error && <p>{error}</p>}
@@ -77,9 +75,11 @@ export default function ProfsViewPage() {
                                     Delete
                                 </Button>
                             </div>
-                            <Link to={`/prof/${prof.Id}`} className="text-blue-500 underline mt-4 block">
-                                View Details
-                            </Link>
+                            <Button asChild className="mb-4 w-full bg-primary text-white hover:bg-blue-800">
+                                <Link to={`/prof/${prof.Id}`} className="text-blue-500 underline mt-4 block">
+                                    View Details
+                                </Link>
+                            </Button>
                         </div>
                     ))}
                 </div>

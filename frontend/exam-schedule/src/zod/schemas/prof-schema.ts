@@ -72,10 +72,10 @@ export const createProfFormSchema = z.object({
     }).min(3, { message: "Last Name should be at least 3 characters long" })
         .max(20, { message: "Last Name should be no longer than 20 characters" }),
 
-    profImage: z.any()
-        .refine(file => file.size <= MAX_FILE_SIZE, { message: "Max image size is 5MB." })
-        .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), { message: "Only .jpg, .jpeg, .png and .webp formats are supported." })
-        .optional(),
+    // profImage: z.any()
+    //     .refine(file => file.size <= MAX_FILE_SIZE, { message: "Max image size is 5MB." })
+    //     .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), { message: "Only .jpg, .jpeg, .png and .webp formats are supported." })
+    //     .optional(),
 
 
     group: z.string({}),

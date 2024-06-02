@@ -25,10 +25,14 @@ const GroupsViewPage: React.FC = () => {
                 <Button asChild className="mb-4 w-full bg-primary text-white hover:bg-blue-800">
                     <Link to="/admin/Groups/create">Create</Link>
                 </Button>
+                <Button asChild className="mb-4 w-full bg-blue-300 text-white hover:bg-blue-800">
+                    <Link to="/admin/Groups/edit">Edit</Link>
+                </Button>
 
                 <ul>
                     {groups.map((group) => (
                         <li key={group.id} className="mb-2">
+
                             <Link to={`/Groups/${group.id}`} className="text-blue-500 hover:underline">
                                 {group.name}
                             </Link>

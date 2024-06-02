@@ -39,13 +39,12 @@ export default function CreateProfForm() {
         control: createProfForm.control,
     })
     function onSubmit(values: z.infer<typeof createProfFormSchema>) {
-        const { email,FirstName,LastName,password,group,profImage,departement,filiere} = values
+        const { email,FirstName,LastName,password,group,departement,filiere} = values
         const submittedProf : Prof  = {
             FirstName: FirstName,
             LastName: LastName,
             email: email,
             group:group,
-            profImage:profImage,
             departement:departement,
             filiere:filiere,
             password:password,

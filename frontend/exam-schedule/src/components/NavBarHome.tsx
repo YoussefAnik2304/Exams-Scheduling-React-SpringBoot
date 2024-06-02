@@ -20,7 +20,6 @@ import LogoDark from "@/assets/images/logoExamifyTypoDark.png"
 import LogoLight from "@/assets/images/logoExamifyTypoLight.png"
 import {useAuth} from "@/context/AuthContext.tsx";
 import {GetDecodedToken} from "@/helpers/Helpers.tsx";
-import placeholderUser from "@/assets/images/placeholder-user.png";
 
 interface RouteProps {
     href: string;
@@ -43,7 +42,7 @@ const routeList: RouteProps[] = [
 ];
 
 export function NavBarHome() {
-    const {isLoggedIn, user} = useAuth();
+    const {isLoggedIn} = useAuth();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -147,7 +146,7 @@ export function NavBarHome() {
                                 className="overflow-hidden rounded-full"
                             >
                                 <img
-                                    src={user?.profilPhoto ? user.profilPhoto : placeholderUser}
+                                    src="@/assets/images/placeholder-user.png"
                                     width={36}
                                     height={36}
                                     alt="Avatar"

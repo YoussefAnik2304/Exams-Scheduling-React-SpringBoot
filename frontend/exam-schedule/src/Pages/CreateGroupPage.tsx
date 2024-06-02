@@ -16,7 +16,7 @@ const CreateGroupPage: React.FC = () => {
         event.preventDefault();
         const newGroup: Group = { id: 0, name, members: [] };
         await createGroup(newGroup);
-        navigate("/Groups");
+        navigate("/admin/Groups");
     };
 
     return (
