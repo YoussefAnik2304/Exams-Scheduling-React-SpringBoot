@@ -61,22 +61,16 @@ export const editProfFormSchema = z.object({
 
 );
 
-export const createProfFormSchema = z.object({
-    FirstName: z.string({
+const createProfFormSchema = z.object({
+    firstName: z.string({
         required_error: "First Name is required.",
     }).min(3, { message: "Prof First Name should be at least 3 characters long" })
         .max(20, { message: "Prof First Name should be no longer than 20 characters" }),
 
-    LastName: z.string({
+    lastName: z.string({
         required_error: "Prof Last Name is required.",
     }).min(3, { message: "Last Name should be at least 3 characters long" })
         .max(20, { message: "Last Name should be no longer than 20 characters" }),
-
-    // profImage: z.any()
-    //     .refine(file => file.size <= MAX_FILE_SIZE, { message: "Max image size is 5MB." })
-    //     .refine(file => ACCEPTED_IMAGE_MIME_TYPES.includes(file.type), { message: "Only .jpg, .jpeg, .png and .webp formats are supported." })
-    //     .optional(),
-
 
     group: z.string({}),
 
@@ -103,10 +97,16 @@ export const createProfFormSchema = z.object({
     ),
 
     coursesTeaching: z.array(CourseFormSchema).optional(),
+
+    enabled: z.boolean().default(false),
+    accountNonExpired: z.boolean().default(false),
+    credentialsNonExpired: z.boolean().default(false),
 })
     .refine((values) => values.password === values.passwordConfirmation, {
         message: "Passwords must match!",
         path: ["passwordConfirmation"],
-    }
-    );
+    });
+
+export default createProfFormSchema;
+
 

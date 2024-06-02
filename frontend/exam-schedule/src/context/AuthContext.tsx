@@ -70,7 +70,7 @@ export const UserProvider = ({ children }: Props) => {
                         title: "Success",
                         description: "You have been logged in successfully",
                     });
-                    navigate("/admin");
+                    navigate("/admin/dashboard");
                 }
             })
             .catch((e) => {
