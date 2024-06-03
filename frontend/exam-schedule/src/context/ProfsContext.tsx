@@ -36,7 +36,8 @@ export const ProfsProvider = ({ children }: Props) => {
             if(res)
                 assignDepartementFiliere(res.data.id,prof.filiere,prof.departement);
             showToast("Success", "Created Successufuly");
-            navigate(`/Professors/${res.data.id}`);
+            // navigate(`/Professors/${res.data.id}`);
+            navigate(`/admin/profs`);
         } catch (e) {
             const errorMessage = ErrorHandler(e);
             showToast("Something went wrong!", errorMessage);
@@ -60,12 +61,12 @@ export const ProfsProvider = ({ children }: Props) => {
         formData.append("lastName", prof.lastName);
         formData.append("password", prof.password);
         formData.append("email", prof.email);
-        formData.append("group", prof.group);
+        // formData.append("group", prof.group);
         formData.append("filiere", prof.filiere);
         formData.append("departement", prof.departement);
-        formData.append("enabled", prof.enabled.toString());
-        formData.append("accountNonExpired", prof.accountNonExpired.toString());
-        formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
+        // formData.append("enabled", prof.enabled.toString());
+        // formData.append("accountNonExpired", prof.accountNonExpired.toString());
+        // formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
 
         try {
             const res = await handleFetch(`Professors/update/${profId}`, "PUT", formData);
@@ -81,7 +82,7 @@ export const ProfsProvider = ({ children }: Props) => {
         try {
             await handleFetch(`Professors/delete/${profId}`, "DELETE");
             showToast("Success", "Deleted Successufuly");
-            navigate("/Professors");
+            navigate(`/admin/profs`);
         } catch (e) {
             const errorMessage = ErrorHandler(e);
             showToast("Something went wrong!", errorMessage);
