@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
-import CourseViewPage from "@/Pages/CourseViewPage.tsx";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCourse } from "@/context/CourseContext.tsx";
-import { Course } from "@/types/Course"; // Adjust the import as necessary
+import { Course } from "@/types/Course.ts";
 import { Button } from "@/components/ui/button"; // Adjust the import path as needed
-import {useNavigate} from "react-router-dom"; // Adjust the import as necessary
+import { DataTable } from "@/components/data-table/data-table"; // Adjust the import path as needed
+import {
+    useReactTable,
+    ColumnDef,
+    getCoreRowModel,
+    getSortedRowModel,
+    getPaginationRowModel,
+} from "@tanstack/react-table";
 
 export default function CoursesViewPage() {
-    const [courses, setCourses] = useState<Course[]>([]);
-    const { getCourses, deleteCourse, updateCourse } = useCourse();
     const navigate = useNavigate();
+    const { deleteCourse, getCourses } = useCourse();
+    const [courses, setCourses] = useState<Course[]>([]);
 
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const data = await getCourses();
-                if (data) {
-                    setCourses(data);
-                }
+                const coursesData = await getCourses();
+                setCourses(coursesData);
             } catch (error) {
-                if (error instanceof Error) {
-                    console.error("Error fetching courses:", error.message);
-                } else {
-                    console.error("Unexpected error:", error);
-                }
+                console.error("Error fetching courses:", error instanceof Error ? error.message : error);
             }
         };
 
@@ -30,37 +31,96 @@ export default function CoursesViewPage() {
     }, [getCourses]);
 
     const handleEdit = (course: Course) => {
-        updateCourse(course,course.courseId!);
         navigate(`/admin/courses/edit/${course.courseId}`, { state: { course } });
-
     };
 
     const handleDelete = async (courseId?: number) => {
         if (courseId === undefined) return;
 
-        try {
-            await deleteCourse(courseId);
-            setCourses((prevCourses) => prevCourses.filter(course => course.courseId !== courseId));
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error("Error deleting course:", error.message);
-            } else {
-                console.error("Unexpected error:", error);
-            }
-        }
+        await deleteCourse(courseId);
+        setCourses(courses.filter((course) => course.courseId !== courseId));
     };
 
-    return (
-        <div className="grid md:grid-cols-3 gap-3">
-            {courses.map((course) => (
-                <div key={course.courseId} className="course-card">
-                    <CourseViewPage course={course} />
-                    <div className="button-group">
-                        <Button onClick={() => handleEdit(course)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</Button>
-                        <Button onClick={() => handleDelete(course.courseId)} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</Button>
+    const columns = useMemo<ColumnDef<Course>[]>(
+        () => [
+            {
+                accessorKey: "titre",
+                header: "Title",
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: "typeElement",
+                header: "Type",
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: "nbrStudents",
+                header: "Number of Students",
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: "grade",
+                header: "Grade",
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: "professor",
+                header: "Professor",
+                cell: (info) => info.getValue(),
+            },
+            {
+                accessorKey: "actions",
+                header: "Actions",
+                cell: ({ row }) => (
+                    <div>
+                        <Button
+                            type="button"
+                            onClick={() => handleEdit(row.original)}
+                            className="bg-blue-500 text-white mr-2"
+                        >
+                            Edit
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={() => handleDelete(row.original.courseId!)}
+                            className="bg-red-500 text-white"
+                        >
+                            Delete
+                        </Button>
                     </div>
+                ),
+            },
+        ],
+        []
+    );
+
+    const table = useReactTable({
+        data: courses,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+    });
+
+    return (
+        <div>
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold">Courses List</h1>
+                <div className="flex space-x-2">
+                    <Button
+                        type="button"
+                        onClick={() => navigate("/admin/courses/create")}
+                        className="space-x-2  w-full md:w-fit"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                             stroke="currentColor" className="size-5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                        </svg>
+                        <span>Add Course</span>
+                    </Button>
                 </div>
-            ))}
+            </div>
+            <DataTable table={table} />
         </div>
     );
 }

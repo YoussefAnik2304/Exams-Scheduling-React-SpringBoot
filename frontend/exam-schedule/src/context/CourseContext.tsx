@@ -49,7 +49,8 @@ export const CoursesProvider  = ({ children } : Props) => {
         formData.append("professor", course.professor);
         try {
             const res = await handleFetch("Courses/add", "POST", formData);
-            navigate(`/Courses/${res.data.id}`);
+            // navigate(`/Courses/${res.data.id}`);
+            navigate(`/admin/courses/`);
         } catch (e) {
             const errorMessage = ErrorHandler(e);
             showToast("Something went wrong!", errorMessage);
@@ -80,7 +81,7 @@ export const CoursesProvider  = ({ children } : Props) => {
                 const resultMessage = res.data.resultDescription.loggingMessage;
                 showToast("Success", resultMessage);
 
-                navigate("Courses");
+                navigate(`/admin/courses`);
 
             }).catch((e) => {
                 const ErrorMessage = ErrorHandler(e);

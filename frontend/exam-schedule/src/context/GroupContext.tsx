@@ -35,7 +35,9 @@ export const GroupsProvider: React.FC<Props> = ({ children }: Props) => {
             } else {
                 const response = await handleFetch(`Groups/${res.data.id}/addMembers/random`, "POST");
             }
+            showToast("Something went wrong!", "Sccessufully created");
             navigate(`/Groups/${res.data.id}`);
+
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
             showToast("Something went wrong!", ErrorMessage);
@@ -49,7 +51,7 @@ export const GroupsProvider: React.FC<Props> = ({ children }: Props) => {
             navigate(`/Groups/${res.data.id}`);
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
-            throw error;
+            throw ErrorMessage;
         }
     };
 
