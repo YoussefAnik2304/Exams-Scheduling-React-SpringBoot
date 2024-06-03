@@ -54,7 +54,7 @@ export const router = createBrowserRouter([
                 children: [
                     { path: "dashboard", element: <DashboardPage /> },
                     { path: "profs", element: <ProfsViewPage /> },
-                    { path: "prof/:id", element: <ProfViewPage /> }, //
+                    { path: "prof/:id/:email/:firstName/:lastName", element: <ProfViewPage /> }, //
                     { path: "profs/create", element: <CreateProfPage /> },
                     { path: "profs/edit/:id", element: <EditProfPage /> },
                     { path: "courses", element: <CoursesViewPage /> },

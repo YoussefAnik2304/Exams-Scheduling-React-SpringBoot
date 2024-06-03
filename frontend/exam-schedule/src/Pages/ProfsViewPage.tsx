@@ -91,7 +91,7 @@ export default function   ProfsViewPage() {
                         </Button>
                       </div>
                       <Button asChild className="w-full" variant={"outline"}>
-                        <Link to={`/admin/prof/${prof.id}`} className="text-black  mt-4 block">
+                        <Link  to={`/admin/prof/${prof.id}/${prof.email}/${prof.firstName}/${prof.lastName}`} className="text-black  mt-4 block">
                           View Details
                         </Link>
                       </Button>
