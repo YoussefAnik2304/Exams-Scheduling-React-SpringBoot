@@ -48,9 +48,7 @@ export default function   ProfsViewPage() {
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-bold">Professors View Page</h1>
             <div className="flex space-x-2">
-              <Button className="mt-4" variant="outline" onClick={fetchProfs}>
-                Fetch Professors
-              </Button>
+             
               <Link to="/admin/profs/create" className="px-2 md:px-6">
                 <Button className="space-x-2 w-full md:w-fit">
                   <svg

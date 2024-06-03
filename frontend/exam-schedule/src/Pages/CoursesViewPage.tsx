@@ -28,7 +28,7 @@ export default function CoursesViewPage() {
         };
 
         fetchCourses();
-    }, [getCourses]);
+    }, []);
 
     const handleEdit = (course: Course) => {
         navigate(`/admin/courses/edit/${course.courseId}`, { state: { course } });

@@ -42,7 +42,7 @@ export const CoursesProvider  = ({ children } : Props) => {
 
     const createCourse = async (course: Course) => {
         const formData = new FormData();
-        formData.append("courseTitle", course.titre);
+        formData.append("titre", course.titre);
         formData.append("nbrStudents", course.nbrStudents.toString());
         formData.append("typeElement", course.typeElement);
         formData.append("grade", course.grade);
@@ -92,8 +92,7 @@ export const CoursesProvider  = ({ children } : Props) => {
     const getCourse = async (courseId: number): Promise<Course> => {
         try {
             const response = await handleFetch(`Courses/${courseId}`, "GET");
-            const resultMessage = response.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+  
             return response.data; // Ensure this returns the course data
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
@@ -104,9 +103,8 @@ export const CoursesProvider  = ({ children } : Props) => {
 
     const getCourses = async (): Promise<Course[]> => {
         try {
-            const response = await handleFetch(`Courses/List`, "GET");
-            const resultMessage = response.data.resultDescription.loggingMessage;
-            showToast("Success", resultMessage);
+            const response = await handleFetch(`Courses`, "GET");
+
             return response.data; // Ensure this returns the list of courses
         } catch (error) {
             const ErrorMessage = ErrorHandler(error);
