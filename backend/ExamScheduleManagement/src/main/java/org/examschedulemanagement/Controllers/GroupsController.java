@@ -24,6 +24,7 @@ public class GroupsController {
     private FiliereDao filiereDao;
     @Autowired
     private DepartementDao departementDao;
+
     @GetMapping("/List")
     public ResponseEntity<List<Groups>> getAllGroups(){
         List<Groups> allGroups=groupsService.getAllGroups();
@@ -73,11 +74,16 @@ public class GroupsController {
         else return ResponseEntity.notFound().build();
     }
     @PostMapping("{group_id}/addMembers/{choice}/{filDep_id}")
-    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id, @PathVariable String choice, @PathVariable Long filDep_id){
+    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id, @PathVariable String choice, @PathVariable String filDep_id){
         if(choice.equals("FILIERE"))
-            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByFiliere(group_id,filDep_id));
+            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByFiliere(group_id,filiereDao.getFiliereByName(filDep_id).getId()));
         else if(choice.equals("DEPARTEMENT"))
-            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByDepartement(group_id,filDep_id));
+            return ResponseEntity.ok().body(groupsService.assignProfessorToGroupByDepartement(group_id,departementDao.getDepartementByNom(filDep_id).getId()));
         else return ResponseEntity.ok().body(groupsService.assignProfessorToGroupRandomly(group_id));
     }
+    @PostMapping("{group_id}/addMembers/random")
+    public ResponseEntity<Groups> assignMemberToGroup (@PathVariable Long group_id){
+        return ResponseEntity.ok().body(groupsService.assignProfessorToGroupRandomly(group_id));
+    }
+
 }
