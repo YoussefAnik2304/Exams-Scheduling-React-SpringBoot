@@ -9,7 +9,6 @@ import { Separator } from "@/components/ui/separator.tsx";
 import { useProfs } from "@/context/ProfsContext.tsx";
 import { PasswordInput } from "@/components/PasswordInput.tsx";
 import { Prof } from "@/types/prof.ts";
-import { Checkbox } from "@/components/ui/checkbox.tsx";
 import createProfFormSchema from "@/zod/schemas/prof-schema.ts";
 import {
     Select,

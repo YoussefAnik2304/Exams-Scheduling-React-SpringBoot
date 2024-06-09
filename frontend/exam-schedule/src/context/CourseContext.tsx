@@ -2,7 +2,7 @@ import React, {createContext} from "react";
 import {ErrorHandler} from "@/helpers/ErrorHandler.tsx";
 import {Course} from "@/types/Course.ts";
 import useToastHelper from "@/helpers/useToastHelper.tsx";
-import {FetchResponse, handleFetch} from "@/api/axios";
+import { handleFetch} from "@/api/axios";
 import { useNavigate } from "react-router-dom";
 
 
@@ -48,7 +48,7 @@ export const CoursesProvider  = ({ children } : Props) => {
         formData.append("grade", course.grade);
         formData.append("professor", course.professor);
         try {
-            const res = await handleFetch("Courses/add", "POST", formData);
+            await handleFetch("Courses/add", "POST", formData);
             // navigate(`/Courses/${res.data.id}`);
             navigate(`/admin/courses/`);
         } catch (e) {
@@ -58,11 +58,13 @@ export const CoursesProvider  = ({ children } : Props) => {
     };
 
     const updateCourse = async (Course: Course) => {
-       /* const formData = new FormData();
+       const formData = new FormData();
         formData.append("courseTitle", Course.titre);
-        formData.append("nbrStudents", Course.nbrStudents.toString);
+        formData.append("nbrStudents", Course.nbrStudents);
         formData.append("typeElement", Course.typeElement);
-*/
+        formData.append("grade", Course.grade);
+        formData.append("professor", Course.professor);
+
         await handleFetch(`Courses/update/${Course.courseId}`,"put",Course)
             .then((res) => {
 
@@ -74,12 +76,12 @@ export const CoursesProvider  = ({ children } : Props) => {
             });
     }
 
+
     const deleteCourse = async (courseId : number) => {
 
         await handleFetch(`Courses/delete/${courseId}`,"DELETE")
             .then((res) => {
-                const resultMessage = res.data.resultDescription.loggingMessage;
-                showToast("Success", resultMessage);
+                showToast("Success", "Deleted Successfully");
 
                 navigate(`/admin/courses`);
 
