@@ -48,30 +48,65 @@ export const ProfsProvider = ({ children }: Props) => {
         formData.append("filiere", filiere);
         formData.append("departement", departement);
         try {
-            const res = await handleFetch(`Professors/${id}/filiere/${filiere}/departement/${departement}`, "POST", formData);
+            await handleFetch(`Professors/${id}/filiere/${filiere}/departement/${departement}`, "POST", formData);
             showToast("Success", "Assign Successufuly");
         } catch (e) {
             const errorMessage = ErrorHandler(e);
             showToast("Something went wrong!", errorMessage);
         }
     }
-   const updateProf = async (prof: Prof, profId: number) => {
+   // const updateProf = async (prof: Prof, profId: number) => {
+   //      const formData = new FormData();
+   //      formData.append("firstName", prof.firstName);
+   //      formData.append("lastName", prof.lastName);
+   //      formData.append("password", prof.password);
+   //      formData.append("email", prof.email);
+   //      // formData.append("group", prof.group);
+   //      formData.append("filiere", prof.filiere);
+   //      formData.append("departement", prof.departement);
+   //      // formData.append("enabled", prof.enabled.toString());
+   //      // formData.append("accountNonExpired", prof.accountNonExpired.toString());
+   //      // formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
+   //
+   //      try {
+   //          const res = await handleFetch(`Professors/update/${profId}`, "PUT", formData);
+   //          showToast("Success", "Updated Successufuly");
+   //          navigate(`/Professors/${res.data.id}`);
+   //      } catch (e) {
+   //          const errorMessage = ErrorHandler(e);
+   //          showToast("Something went wrong!", errorMessage);
+   //      }
+   //  };
+
+    const updateProf = async (prof: Prof, profId: number) => {
         const formData = new FormData();
         formData.append("firstName", prof.firstName);
         formData.append("lastName", prof.lastName);
         formData.append("password", prof.password);
         formData.append("email", prof.email);
-        // formData.append("group", prof.group);
-        formData.append("filiere", prof.filiere);
-        formData.append("departement", prof.departement);
-        // formData.append("enabled", prof.enabled.toString());
-        // formData.append("accountNonExpired", prof.accountNonExpired.toString());
-        // formData.append("credentialsNonExpired", prof.credentialsNonExpired.toString());
 
         try {
             const res = await handleFetch(`Professors/update/${profId}`, "PUT", formData);
-            showToast("Success", "Updated Successufuly");
-            navigate(`/Professors/${res.data.id}`);
+            if (res) {
+                await updateDepartementFiliere(profId, prof.filiere, prof.departement);
+            }
+            showToast("Success", "Updated Successfully");
+            // navigate(`/admin/profs/${res.data.id}`);
+            navigate(`/admin/profs/`);
+        } catch (e) {
+            const errorMessage = ErrorHandler(e);
+            showToast("Something went wrong!", errorMessage);
+        }
+    };
+
+    const updateDepartementFiliere = async (id: number, filiere: string, departement: string) => {
+        const formData = new FormData();
+        formData.append("filiere", filiere);
+        formData.append("departement", departement);
+
+        try {
+            await handleFetch(`Professors/${id}/filiere/${filiere}/departement/${departement}`, "POST", formData);
+            showToast("Success", "Assign Successfully");
         } catch (e) {
             const errorMessage = ErrorHandler(e);
             showToast("Something went wrong!", errorMessage);

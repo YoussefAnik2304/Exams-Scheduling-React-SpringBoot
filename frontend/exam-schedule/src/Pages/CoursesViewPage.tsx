@@ -11,6 +11,7 @@ import {
     getSortedRowModel,
     getPaginationRowModel,
 } from "@tanstack/react-table";
+import CourseEditPopover from "@/components/EditCoursePopover.tsx"; // Adjust the import path as needed
 
 export default function CoursesViewPage() {
     const navigate = useNavigate();
@@ -30,15 +31,12 @@ export default function CoursesViewPage() {
         fetchCourses();
     }, []);
 
-    const handleEdit = (course: Course) => {
-        navigate(`/admin/courses/edit/${course.courseId}`, { state: { course } });
-    };
-
     const handleDelete = async (courseId?: number) => {
-        if (courseId === undefined) return;
-
-        await deleteCourse(courseId);
-        setCourses(courses.filter((course) => course.courseId !== courseId));
+        console.log("Deleting course with ID:", courseId);
+        if (typeof courseId === 'number') {
+            await deleteCourse(courseId);
+            setCourses(courses.filter((course) => course.courseId !== courseId));
+        }
     };
 
     const columns = useMemo<ColumnDef<Course>[]>(
@@ -72,17 +70,11 @@ export default function CoursesViewPage() {
                 accessorKey: "actions",
                 header: "Actions",
                 cell: ({ row }) => (
-                    <div>
+                    <div className="flex space-x-2">
+                        <CourseEditPopover course={row.original} />
                         <Button
                             type="button"
-                            onClick={() => handleEdit(row.original)}
-                            className="bg-blue-500 text-white mr-2"
-                        >
-                            Edit
-                        </Button>
-                        <Button
-                            type="button"
-                            onClick={() => handleDelete(row.original.courseId!)}
+                            onClick={() => handleDelete(row.original.courseId)}
                             className="bg-red-500 text-white"
                         >
                             Delete
@@ -110,7 +102,7 @@ export default function CoursesViewPage() {
                     <Button
                         type="button"
                         onClick={() => navigate("/admin/courses/create")}
-                        className="space-x-2  w-full md:w-fit"
+                        className="space-x-2 w-full md:w-fit"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
                              stroke="currentColor" className="size-5">

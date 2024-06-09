@@ -17,8 +17,6 @@
 //     accountNonLocked: boolean;
 //   }
 
-import {Course} from "@/types/Course.ts";
-
 export interface Prof {
     id?: number;
     firstName: string;
